@@ -9,7 +9,7 @@ from modeles import modeleGsbrRv as mGsb
 app = Flask(__name__)
 
 
-@app.route('/visiteurs/<matricule>/<mdp>', methods=['GET'])
+@app.route('/visiteur/<matricule>/<mdp>', methods=['GET'])
 def seConnecter(matricule, mdp):
     visiteur = mGsb.seConnecter(matricule, mdp)
 

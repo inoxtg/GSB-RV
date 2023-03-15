@@ -84,16 +84,16 @@
             android:theme="@style/EditScreenTextInputLayoutStyle">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="16dp"
-                android:drawableEnd="@drawable/ic_email_white_24dp"
-                android:fontFamily="@font/calibri"
-                android:hint="Matricule"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="16dp"
+                    android:drawableEnd="@drawable/ic_email_white_24dp"
+                    android:fontFamily="@font/calibri"
+                    android:hint="Matricule"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" android:id="@+id/teMatr"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -103,39 +103,51 @@
             android:theme="@style/EditScreenTextInputLayoutStyle">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="16dp"
-                android:drawableEnd="@drawable/ic_lock_white_24dp"
-                android:fontFamily="@font/calibri"
-                android:hint="Mot de passe"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="16dp"
+                    android:drawableEnd="@drawable/ic_lock_white_24dp"
+                    android:fontFamily="@font/calibri"
+                    android:hint="Mot de passe"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" android:id="@+id/teMdp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
             <Button
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:fontFamily="@font/calibri"
-                android:text="@string/Connection"
-                android:textAllCaps="false"
-                android:textColor="#96ffffff"
-                android:textSize="16sp"
-                android:textStyle="bold"
-            />
-        </RelativeLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/buttonshapewhitebg"
+                    android:fontFamily="@font/calibri"
+                    android:text="@string/Connection"
+                    android:textAllCaps="false"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:id="@+id/btnConnection"/>
+            <Button
+                    android:onClick="annuler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/buttonshapewhitebg"
+                    android:fontFamily="@font/calibri"
+                    android:text="@string/annuler"
+                    android:textAllCaps="false"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:id="@+id/btnAnnuler"/>
+        </LinearLayout>
 
     </LinearLayout>
 
