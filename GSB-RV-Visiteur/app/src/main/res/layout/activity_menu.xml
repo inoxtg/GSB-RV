@@ -83,8 +83,10 @@
                 android:textStyle="bold"
                 android:id="@+id/btnSaisir"/>
         <Button
+                android:onClick="help"
+                android:id="@+id/btnHelp"
                 android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/question_mark_white_no_circle"
                 android:fontFamily="@font/calibri"
@@ -103,5 +105,15 @@
                 android:textStyle="bold"
                 android:id="@+id/btnConsulter"/>
     </LinearLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Button
+                android:onClick="seDeconnecter"
+                android:background="@drawable/log_out_white"
+                android:layout_width="28dp"
+                android:layout_height="27dp"
+                android:id="@+id/btnSeDeconnecter"/>
+    </RelativeLayout>
 
 </RelativeLayout>
