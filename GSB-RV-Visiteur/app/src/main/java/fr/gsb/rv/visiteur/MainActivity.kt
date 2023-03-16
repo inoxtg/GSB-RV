@@ -1,5 +1,6 @@
 package fr.gsb.rv.visiteur
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
                 visiteur.prenom = response.getString("vis_prenom")
                 visiteur.matricule = matr
                 visiteur.password = mdp
+
+                val intent = Intent(this@MainActivity, MenuActivity::class.java)
+                startActivity(intent)
             },
             {
                 Toast.makeText(this,"Mot de passe ou Matricule invalide", Toast.LENGTH_LONG).show()
