@@ -6,4 +6,10 @@ class Visiteur (
     var prenom: String,
     var nom: String
 ) {
+    constructor() : this("", "", "", "")
+    override fun toString(): String {
+        return "Visiteur(matricule='$matricule', password='$password', prenom='$prenom', nom='$nom')"
+    }
+
+
 }

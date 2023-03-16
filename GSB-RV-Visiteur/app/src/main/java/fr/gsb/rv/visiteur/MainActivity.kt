@@ -1,9 +1,16 @@
 package fr.gsb.rv.visiteur
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import fr.gsb.rv.visiteur.entites.Visiteur
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,21 +18,33 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
     fun annuler(vue: View){
-        var teMatr: EditText = findViewById(R.id.teMatr)
-        var teMdp: EditText = findViewById(R.id.teMdp)
+        val teMatr: EditText = findViewById(R.id.teMatr)
+        val teMdp: EditText = findViewById(R.id.teMdp)
         teMatr.setText("")
         teMdp.setText("")
     }
 
     fun seConnecter(vue: View){
-        var teMatr: EditText = findViewById(R.id.teMatr)
-        var teMdp: EditText = findViewById(R.id.teMdp)
+        val teMatr: EditText = findViewById(R.id.teMatr)
+        val teMdp: EditText = findViewById(R.id.teMdp)
 
-        var matr: String = teMatr.getText().toString()
-        var mdp: String = teMdp.getText().toString()
+        val matr: String = teMatr.getText().toString()
+        val mdp: String = teMdp.getText().toString()
 
-        var url: String = "http://192.168.1.29:5000/visiteur/$matr/$mdp"
+        val visiteur = Visiteur()
+        val url = "http://192.168.1.29:5000/visiteur/$matr/$mdp"
 
-        var test = 0;
+        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(Request.Method.GET, url,null,
+            { response ->
+                visiteur.nom = response.getString("vis_nom")
+                visiteur.prenom = response.getString("vis_prenom")
+                visiteur.matricule = matr
+                visiteur.password = mdp
+            },
+            {
+                Toast.makeText(this,"Mot de passe ou Matricule invalide", Toast.LENGTH_LONG).show()
+        })
+        requestQueue.add(request)
     }
 }
