@@ -25,5 +25,7 @@ class MainActivity : AppCompatActivity() {
         var mdp: String = teMdp.getText().toString()
 
         var url: String = "http://192.168.1.29:5000/visiteur/$matr/$mdp"
+
+        var test = 0;
     }
 }
