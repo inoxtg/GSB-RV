@@ -2,7 +2,7 @@ package fr.gsb.rv.visiteur
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Parcelable
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -12,8 +12,9 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.gsb.rv.visiteur.entites.Visiteur
+import java.io.Serializable
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Serializable{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
                 visiteur.password = mdp
 
                 val intent = Intent(this@MainActivity, MenuActivity::class.java)
+                intent.putExtra("nom",visiteur.nom.toUpperCase())
+                intent.putExtra("prenom", visiteur.prenom)
+                intent.putExtra("matricule", visiteur.matricule)
                 startActivity(intent)
             },
             {
