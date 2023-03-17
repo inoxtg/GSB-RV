@@ -96,9 +96,9 @@ def getMedicaments():
 def addRapportVisite():
     unRapport = json.loads(request.data)
     numRapport = mGsb.enregistrerRapportVisite(unRapport['matricule'],
-                                                      unRapport['praticien'],
-                                                      unRapport['visite'],
-                                                      unRapport['bilan'])
+                                               unRapport['praticien'],
+                                               unRapport['visite'],
+                                               unRapport['bilan'])
 
     reponse = make_response('')
     if numRapport != None:

@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_img_6" />
+                android:src="@drawable/nature_img_4" />
     </FrameLayout>
     <LinearLayout
             android:layout_width="wrap_content"
@@ -68,6 +68,7 @@
 
         </LinearLayout>
         <LinearLayout
+                android:id="@id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -87,67 +88,51 @@
                     android:layout_marginTop="2dp"
                     android:background="@color/dark_olive_green" />
 
+
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:orientation="vertical">
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:fontFamily="@font/calibri"
-                android:text="@string/saisir"
-                android:textAllCaps="false"
-                android:textColor="#96ffffff"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:id="@+id/btnSaisir"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/dark_olive_green"/>
+        </LinearLayout>
+<!--    <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingLeft="32dp"-->
+<!--            android:paddingRight="32dp">-->
 
 
-        <Button
-                android:onClick="consulter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/buttonshapewhitebg"
-                android:fontFamily="@font/calibri"
-                android:text="@string/consulter"
-                android:textAllCaps="false"
-                android:textColor="#96ffffff"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:id="@+id/btnConsulter"/>
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="bottom"
-            android:orientation="vertical">
-        <Button
-                android:onClick="help"
-                android:id="@+id/btnHelp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/question_mark_white_no_circle"
-                android:fontFamily="@font/calibri"
-        />
-    </LinearLayout>
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColorHint="#96ffffff"-->
+<!--                android:theme="@style/EditScreenTextInputLayoutStyle">-->
 
+<!--            <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:drawablePadding="16dp"-->
+<!--                    android:fontFamily="@font/calibri"-->
+<!--                    android:hint="Mois"-->
+<!--                    android:inputType="number"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="16sp" android:id="@+id/teMois"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColorHint="#96ffffff"-->
+<!--                android:theme="@style/EditScreenTextInputLayoutStyle">-->
+
+<!--            <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:drawablePadding="16dp"-->
+<!--                    android:fontFamily="@font/calibri"-->
+<!--                    android:hint="Année"-->
+<!--                    android:inputType="number"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="16sp" android:id="@+id/teAnnee"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+<!--    </LinearLayout>-->
 </RelativeLayout>

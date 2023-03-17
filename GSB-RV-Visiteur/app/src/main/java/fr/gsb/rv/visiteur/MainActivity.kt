@@ -12,6 +12,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.gsb.rv.visiteur.entites.Visiteur
+import fr.gsb.rv.visiteur.technique.Session
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity(), Serializable{

@@ -10,9 +10,9 @@ class HelpDialog : DialogFragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(
                   "Consulter :\n"
-                + " vous permet d\'accèder à vos anciens rapports.\n"
-                + "\nSaisir :\n"
-                + " vous permet de créer un nouveau rapport.")
+                + " Accèder à vos anciens rapports.\n"
+                + "Saisir :\n"
+                + " Créer un nouveau rapport.")
             .setCancelable(true)
             .create()
 

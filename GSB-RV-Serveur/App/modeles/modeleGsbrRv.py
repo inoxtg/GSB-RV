@@ -5,7 +5,6 @@ import mysql.connector
 
 connexionBD = None
 
-
 def getConnexionBD():
     global connexionBD
     try:
@@ -49,7 +48,6 @@ def seConnecter(matricule, mdp):
 
     except:
         return None
-
 
 def getRapportsVisite(matricule, mois, annee):
     try:
