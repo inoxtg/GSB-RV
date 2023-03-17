@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
+import fr.gsb.rv.visiteur.dialogs.RetourDialog
 
 class ConsulterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,5 +20,8 @@ class ConsulterActivity : AppCompatActivity() {
     }
     fun seDeconnecter(vue: View){
         DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
+    }
+    fun retour(vue: View){
+        RetourDialog().show(this.supportFragmentManager, RetourDialog.TAG)
     }
 }

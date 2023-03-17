@@ -95,7 +95,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,15 +106,8 @@
                 android:textAllCaps="false"
                 android:textColor="#96ffffff"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:id="@+id/btnSaisir"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/dark_olive_green"/>
-
 
         <Button
                 android:onClick="consulter"
@@ -127,7 +120,7 @@
                 android:textAllCaps="false"
                 android:textColor="#96ffffff"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:id="@+id/btnConsulter"/>
     </LinearLayout>
     <LinearLayout
