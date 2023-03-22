@@ -5,7 +5,7 @@
         xmlns:app="http://.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MenuActivity">
+        tools:context=".MenuActivity" android:visibility="visible">
     <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_img_2" />
+                android:src="@drawable/nature_img_2"/>
     </FrameLayout>
     <LinearLayout
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
                 android:fontFamily="@font/gotham"
                 android:text="NOM"
                 android:textColor="@color/dark_olive_green"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         <TextView
                 android:id="@+id/prenomVisi"
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:fontFamily="@font/gotham"
                 android:text="prenom"
                 android:textColor="@color/dark_olive_green"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         <Button
                 android:onClick="retour"
                 android:background="@drawable/ic_retour_green_24"
@@ -63,50 +63,27 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="#96ffffff"
                 android:theme="@style/EditScreenTextInputLayoutStyle">
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+            <DatePicker
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
                     android:drawablePadding="16dp"
-                    android:drawableEnd="@drawable/ic_date_white_24"
-                    android:fontFamily="@font/calibri"
-                    android:hint="@string/mois"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:maxLength="2"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" android:id="@+id/teMatr"/>
+                    android:id="@+id/datePicker"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
+        <Button
+                android:onClick="validerDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#96ffffff"
-                android:theme="@style/EditScreenTextInputLayoutStyle">
-
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawablePadding="16dp"
-                    android:drawableEnd="@drawable/ic_date_white_24"
-                    android:fontFamily="@font/calibri"
-                    android:hint="@string/annee"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:maxLength="4"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" android:id="@+id/teMdp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/buttonshapewhitebg"
-                    android:fontFamily="@font/calibri"
-                    android:text="@string/valider"
-                    android:textAllCaps="false"
-                    android:textColor="#96ffffff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:id="@+id/btnConsulter"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/buttonshapewhitebg"
+                android:fontFamily="@font/calibri"
+                android:text="@string/valider"
+                android:textAllCaps="false"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:id="@+id/btnValider"/>
     </LinearLayout>
 </RelativeLayout>

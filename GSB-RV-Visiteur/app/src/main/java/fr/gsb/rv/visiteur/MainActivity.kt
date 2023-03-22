@@ -2,7 +2,6 @@ package fr.gsb.rv.visiteur
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -12,10 +11,10 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.gsb.rv.visiteur.entites.Visiteur
-import fr.gsb.rv.visiteur.technique.Session
-import java.io.Serializable
+import org.jetbrains.annotations.NotNull
+import java.util.Properties
 
-class MainActivity : AppCompatActivity(), Serializable{
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,7 +34,9 @@ class MainActivity : AppCompatActivity(), Serializable{
         val mdp: String = teMdp.getText().toString()
 
         val visiteur = Visiteur()
-        val url = "http://192.168.1.29:5000/visiteur/$matr/$mdp"
+
+        val ip = System.getenv("ip")
+        val url = "$ip/visiteur/$matr/$mdp"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val request = JsonObjectRequest(Request.Method.GET, url,null,

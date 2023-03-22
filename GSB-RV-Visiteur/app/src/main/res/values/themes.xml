@@ -19,6 +19,7 @@
         <item name="colorControlHighlight">@color/textInputLayout</item>
         <item name="colorAccent">@color/textInputLayout</item>
         <item name="android:textColorHint">@color/textInputLayout</item>
+        <item name="android:textColorPrimary">@color/textInputLayout</item>
     </style>
 
 </resources>

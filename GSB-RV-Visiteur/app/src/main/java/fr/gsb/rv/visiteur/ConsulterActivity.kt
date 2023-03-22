@@ -1,9 +1,13 @@
 package fr.gsb.rv.visiteur
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 
@@ -17,11 +21,19 @@ class ConsulterActivity : AppCompatActivity() {
 
         tvNomVisi.setText(this.intent.getStringExtra("nom"))
         tvPrenomVisi.setText(this.intent.getStringExtra("prenom"))
+
     }
-    fun seDeconnecter(vue: View){
-        DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
+        fun seDeconnecter(vue: View) {
+            DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
+        }
+
+        fun retour(vue: View) {
+            RetourDialog().show(this.supportFragmentManager, RetourDialog.TAG)
+        }
+        fun validerDate(vue: View){
+            val date: DatePicker = findViewById(R.id.datePicker)
+            val month: String = date.month.toString() + 1
+            Log.i("Month",month)
+
+        }
     }
-    fun retour(vue: View){
-        RetourDialog().show(this.supportFragmentManager, RetourDialog.TAG)
-    }
-}

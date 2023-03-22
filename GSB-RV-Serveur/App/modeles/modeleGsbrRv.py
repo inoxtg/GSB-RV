@@ -24,12 +24,9 @@ def seConnecter(matricule, mdp):
     try:
         curseur = getConnexionBD().cursor()
         requete = '''
-                    SELECT UNIQUE vis_nom, vis_prenom                  
+                    SELECT vis_nom, vis_prenom                  
                     FROM Visiteur
-                    INNER JOIN Travailler 
-                    ON Visiteur.vis_matricule = Travailler.vis_matricule
-                    WHERE tra_role LIKE "Visiteur"
-                    AND Visiteur.vis_matricule LIKE %s
+                    WHERE Visiteur.vis_matricule LIKE %s
                     and Visiteur.vis_mdp LIKE %s 
                 '''
 
