@@ -14,6 +14,8 @@ import fr.gsb.rv.visiteur.entites.Visiteur
 import fr.gsb.rv.visiteur.technique.Session
 
 class MainActivity : AppCompatActivity() {
+
+    val ip: String = BuildConfig.SERVER_URL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         val visiteur = Visiteur()
 
-        val ip = BuildConfig.SERVER_URL
         val url = "$ip/visiteur/$matr/$mdp"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)

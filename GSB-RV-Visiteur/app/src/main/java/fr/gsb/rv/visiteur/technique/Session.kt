@@ -8,9 +8,6 @@ class Session
     companion object {
         private var session: Session? = null
 
-        fun getSession(): Session? {
-            return session
-        }
         fun ouvrir(visiteur: Visiteur) {
             session = Session(visiteur)
         }
