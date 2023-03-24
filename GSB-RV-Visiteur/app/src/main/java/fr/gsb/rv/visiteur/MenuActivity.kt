@@ -10,8 +10,11 @@ import android.widget.TextView
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.HelpDialog
 import fr.gsb.rv.visiteur.technique.Session
+import java.util.*
 
 class MenuActivity : AppCompatActivity() {
+
+    val thisVisiteur = Session.getLevisiteur()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
@@ -19,14 +22,11 @@ class MenuActivity : AppCompatActivity() {
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)
 
-        tvNomVisi.setText(this.intent.getStringExtra("nom"))
-        tvPrenomVisi.setText(this.intent.getStringExtra("prenom"))
-
+        tvNomVisi.setText(thisVisiteur.nom.uppercase(Locale.getDefault()))
+        tvPrenomVisi.setText(thisVisiteur.prenom)
     }
     fun consulter(vue: View){
         val intent = Intent(this@MenuActivity, ConsulterActivity::class.java)
-        intent.putExtra("nom",this.intent.getStringExtra("nom"))
-        intent.putExtra("prenom", this.intent.getStringExtra("prenom"))
         startActivity(intent)
     }
     fun saisir(vue: View){

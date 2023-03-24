@@ -14,8 +14,8 @@ class Session
         fun ouvrir(visiteur: Visiteur) {
             session = Session(visiteur)
         }
-        fun getLevisiteur(): Visiteur? {
-            return session?.leVisiteur
+        fun getLevisiteur(): Visiteur {
+            return session?.leVisiteur!!
         }
 
         fun fermer() {
