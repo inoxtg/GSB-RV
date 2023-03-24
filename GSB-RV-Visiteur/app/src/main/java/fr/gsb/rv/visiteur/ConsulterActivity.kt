@@ -72,7 +72,7 @@ class ConsulterActivity : AppCompatActivity() {
             },
             {
                 Log.i("Error : ", it.toString())
-                Toast.makeText(this, "Aucun rapports trouvé pour le mois et l'année choisis", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Aucun rapports trouvé pour le mois et l'année séléctionnés", Toast.LENGTH_LONG).show()
             })
         requestQueue.add(request)
     }
