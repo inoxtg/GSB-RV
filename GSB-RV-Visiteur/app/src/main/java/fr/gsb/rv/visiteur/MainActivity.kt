@@ -11,10 +11,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.gsb.rv.visiteur.entites.Visiteur
-import fr.gsb.rv.visiteur.technique.Ip
 import fr.gsb.rv.visiteur.technique.Session
-import org.jetbrains.annotations.NotNull
-import java.util.Properties
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val visiteur = Visiteur()
 
-        val ip = "http://192.168.43.59:5000"
+        val ip = BuildConfig.SERVER_URL
         val url = "$ip/visiteur/$matr/$mdp"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)

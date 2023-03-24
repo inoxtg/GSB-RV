@@ -2,6 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+Properties properties = new Properties()
+if (project.rootProject.file('local.properties').canRead()) {
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+}
+
 
 android {
     namespace 'fr.gsb.rv.visiteur'
@@ -14,6 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField 'String', 'SERVER_URL', properties.getProperty('SERVER_URL', '"http://192.168.43.59:5000"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -44,7 +44,7 @@ class ConsulterActivity : AppCompatActivity() {
         val year: String = date.year.toString()
         val matr: String? = thisVisiteur.matricule
 
-        val ip = "http://192.168.43.59:5000"
+        val ip = BuildConfig.SERVER_URL
         val url = "$ip/rapports/$matr/$month/$year"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
