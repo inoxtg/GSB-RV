@@ -9,6 +9,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import fr.gsb.rv.visiteur.adapteurs.RapportAdapter
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.Praticien
@@ -16,19 +17,31 @@ import fr.gsb.rv.visiteur.entites.RapportVisite
 import fr.gsb.rv.visiteur.technique.Session
 import java.util.*
 
-class ConsulterActivity : AppCompatActivity() {
-    
+class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
+
+    val rapports = mutableListOf<RapportVisite>()
+    var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
+
+
     val thisVisiteur = Session.getLevisiteur()
     val ip: String = BuildConfig.SERVER_URL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consulter)
 
+
+        //NOM PRENOM SESSION
+
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)
 
         tvNomVisi.setText(thisVisiteur.nom.uppercase(Locale.getDefault()))
         tvPrenomVisi.setText(thisVisiteur.prenom)
+
+        //ARRAY DE RAPPORTS
+        val lvRapports: ListView = findViewById(R.id.lvRapports)
+        lvRapports.adapter = rapportsAdapter
+
     }
     fun seDeconnecter(vue: View) {
         DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
@@ -66,14 +79,23 @@ class ConsulterActivity : AppCompatActivity() {
                     rapportVisite.numero = Integer.parseInt(response.getJSONObject(i).getString("rap_num"))
                     rapportVisite.bilan = response.getJSONObject(i).getString("rap_bilan")
                     rapportVisite.dateVisite = response.getJSONObject(i).getString("rap_date_visite")
-                    
+
+                    Log.i("A CHAQUE RAPPORTS  1 : ", rapportVisite.toString())
+
+                    rapports.add(rapportVisite)
                     i += 1
                 }
+                Log.i("A CHAQUE RAPPORTS  1 : ", "TEST IT HAPPEND")
+                rapports.sortBy {  it.numero  }
+                rapportsAdapter.notifyDataSetChanged()
             },
             {
                 Log.i("Error : ", it.toString())
                 Toast.makeText(this, "Aucun rapports trouvé pour le mois et l'année séléctionnés", Toast.LENGTH_LONG).show()
             })
         requestQueue.add(request)
+    }
+    override fun onItemClick(parent: AdapterView<*>, vue: View, position: Int, id: Long) {
+        TODO("Not yet implemented")
     }
 }
