@@ -20,7 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField 'String', 'SERVER_URL', properties.getProperty('SERVER_URL', '"http://192.168.43.59:5000"')
+        buildConfigField 'String', 'SERVER_URL', properties.getProperty('SERVER_URL')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

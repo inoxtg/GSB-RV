@@ -1932,8 +1932,18 @@ CREATE TABLE `RapportVisite` (
 --
 
 LOCK TABLES `RapportVisite` WRITE;
+INSERT INTO `RapportVisite` (vis_matricule, rap_num, rap_date_visite,rap_date_redaction ,pra_num, mot_num, rap_coef_confiance, rap_bilan)
+VALUES
+    ('a131',1,'2023/01/01','2023/01/15',1,4,2, 'Très bien continuez ainsi'),
+    ('a131',2,'2023/01/02','2023/01/15',1,3,2,' Très bien continuez ainsi'),
+    ('a131',3,'2023/01/03','2023/01/15',2,3,2, 'Très bien continuez ainsi'),
+    ('a131',4,'2023/01/04','2023/01/15',3,2,2, 'Très bien continuez ainsi'),
+    ('a131',5,'2023/01/05','2023/01/15',1,1,2,'Très bien continuez ainsi'),
+    ('a131',6,'2023/01/06','2023/01/15',7,4,2, 'Très bien continuez ainsi'),
+    ('a17',5,'2022/12/03','2023/01/02',1,3,4,'Très bien continuez ainsi'),
+    ('a93',1,'2023/01/02','2023/01/04',4,2,1,'Très bien continuez ainsi'),
+    ('a55',2,'2023/01/22','2023/02/1',2,1,5,'Très bien continuez ainsi');
 /*!40000 ALTER TABLE `RapportVisite` DISABLE KEYS */;
-INSERT INTO `RapportVisite` (vis_matricule, rap_num, rap_date_visite,rap_date_redaction ,pra_num, mot_num, rap_coef_confiance) VALUES ('a131',1,'2023/01/10',"2023/01/15",2,4,2),('a17',5,'2022/12/03',"2023/01/02",1,3,4),('a93',1,'2023/01/02',"2023/01/04",4,2,1),('a55',2,'2023/01/22',"2023/02/1",2,1,5);
 /*!40000 ALTER TABLE `RapportVisite` ENABLE KEYS */;
 UNLOCK TABLES;
 

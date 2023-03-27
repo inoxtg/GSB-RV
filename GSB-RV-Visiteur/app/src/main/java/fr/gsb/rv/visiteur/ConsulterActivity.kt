@@ -80,12 +80,9 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                     rapportVisite.bilan = response.getJSONObject(i).getString("rap_bilan")
                     rapportVisite.dateVisite = response.getJSONObject(i).getString("rap_date_visite")
 
-                    Log.i("A CHAQUE RAPPORTS  1 : ", rapportVisite.toString())
-
                     rapports.add(rapportVisite)
                     i += 1
                 }
-                Log.i("A CHAQUE RAPPORTS  1 : ", "TEST IT HAPPEND")
                 rapports.sortBy {  it.numero  }
                 rapportsAdapter.notifyDataSetChanged()
             },
