@@ -3,18 +3,16 @@ package fr.gsb.rv.visiteur
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.HelpDialog
-import fr.gsb.rv.visiteur.technique.Session
+import fr.gsb.rv.visiteur.technique.SessionUser
 import java.util.*
 
 class MenuActivity : AppCompatActivity() {
 
-    val thisVisiteur = Session.getLevisiteur()
+    val thisVisiteur = SessionUser.getLevisiteur()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)

@@ -1,8 +1,6 @@
 package fr.gsb.rv.visiteur.entites
 
-import java.util.Date
-
-class RapportVisite (
+class RapportVisite(
     var leVisiteur: Visiteur,
     var lePraticien: Praticien,
     var numero: Int,
@@ -16,7 +14,17 @@ class RapportVisite (
     constructor(): this(Visiteur(), Praticien(), -1, "","","","",-1,false)
 
     override fun toString(): String {
-        return "RapportVisite(leVisiteur=$leVisiteur, lePraticien=$lePraticien, numero=$numero, dateVisite='$dateVisite', bilan='$bilan')"
+        return "RapportVisite(" +
+                "leVisiteur=$leVisiteur, " +
+                "lePraticien=$lePraticien," +
+                " numero=$numero," +
+                " dateVisite='$dateVisite', " +
+                "dateRedac='$dateRedac', " +
+                "bilan='$bilan', " +
+                "motif='$motif', " +
+                "coefConfiance=$coefConfiance, " +
+                "lu=$lu)"
     }
+
 
 }

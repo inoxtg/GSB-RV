@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/nature_img_4" />
+            android:src="@drawable/nature_img_9" />
 
     </FrameLayout>
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="@string/gsb_rv"
-                android:textColor="@color/dark_olive_green"
+                android:textColor="#96ffffff"
                 android:textSize="32sp" />
 
         </LinearLayout>
@@ -55,14 +55,14 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="@string/visiteur"
-                android:textColor="@color/dark_olive_green"
+                android:textColor="#96ffffff"
                 android:textSize="32sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
-                android:background="@color/dark_olive_green" />
+                android:background="#96ffffff" />
 
         </LinearLayout>
     </LinearLayout>

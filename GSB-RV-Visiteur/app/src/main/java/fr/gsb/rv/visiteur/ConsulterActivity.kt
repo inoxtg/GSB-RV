@@ -15,7 +15,8 @@ import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.Praticien
 import fr.gsb.rv.visiteur.entites.RapportVisite
-import fr.gsb.rv.visiteur.technique.Session
+import fr.gsb.rv.visiteur.technique.SessionRapport
+import fr.gsb.rv.visiteur.technique.SessionUser
 import java.util.*
 
 class ConsulterActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class ConsulterActivity : AppCompatActivity() {
     var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
 
 
-    val thisVisiteur = Session.getLevisiteur()
+    val thisVisiteur = SessionUser.getLevisiteur()
     val ip: String = BuildConfig.SERVER_URL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +37,16 @@ class ConsulterActivity : AppCompatActivity() {
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)
 
-        tvNomVisi.setText(thisVisiteur.nom.uppercase(Locale.getDefault()))
-        tvPrenomVisi.setText(thisVisiteur.prenom)
+        tvNomVisi.text = thisVisiteur.nom.uppercase(Locale.getDefault())
+        tvPrenomVisi.text = thisVisiteur.prenom
 
-        //ARRAY DE RAPPORTS
         val lvRapports: ListView = findViewById(R.id.lvRapports)
         lvRapports.adapter = rapportsAdapter
         lvRapports.setOnItemClickListener { adapterView, vue, position, id ->
-            Log.i("CLICK", "$position $id")
             val rapChoisis: RapportVisite = rapports.get(position)
-            Log.v("RAPPORT CHOISIS", rapChoisis.toString())
+            SessionRapport.ouvrir(rapChoisis)
+            val intent = Intent(this@ConsulterActivity, RapportActivity::class.java)
+            startActivity(intent)
         }
     }
     fun seDeconnecter(vue: View) {
@@ -74,6 +75,8 @@ class ConsulterActivity : AppCompatActivity() {
                 var i = 0
                 while (i < response.length()){
 
+                    var lu: String
+
                     val praticien = Praticien()
                     praticien.nom = response.getJSONObject(i).getString("pra_nom")
                     praticien.prenom = response.getJSONObject(i).getString("pra_prenom")
@@ -86,7 +89,10 @@ class ConsulterActivity : AppCompatActivity() {
                     rapportVisite.numero = Integer.parseInt(response.getJSONObject(i).getString("rap_num"))
                     rapportVisite.bilan = response.getJSONObject(i).getString("rap_bilan")
                     rapportVisite.dateVisite = response.getJSONObject(i).getString("rap_date_visite")
-                    rapportVisite.dateRedac = response.getJSONObject(i).getString("")
+                    rapportVisite.dateRedac = response.getJSONObject(i).getString("rap_date_redaction")
+                    rapportVisite.motif = response.getJSONObject(i).getString("mot_libelle")
+                    rapportVisite.coefConfiance = Integer.parseInt(response.getJSONObject(i).getString("rap_coef_confiance"))
+                    rapportVisite.lu = response.getJSONObject(i).getString("rap_lu") == "1"
 
                     rapports.add(rapportVisite)
                     i += 1

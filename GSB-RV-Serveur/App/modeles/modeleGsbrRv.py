@@ -88,12 +88,12 @@ def getRapportsVisite(matricule, mois, annee):
             unRapport['pra_nom'] = unEnregistrement[3]
             unRapport['pra_prenom'] = unEnregistrement[4]
             unRapport['pra_cp'] = unEnregistrement[5]
-            unRapport['pra_ville'] = unEnregistrement[5]
-            # # unRapport['rap_date_redaction'] = '%04d-%02d-%02d' % (
-            # #     unEnregistrement[6].year, unEnregistrement[6].month, unEnregistrement[6].day)
-            # # unRapport['mot_libelle'] = unEnregistrement[7]
-            # unRapport['rap_coef_confiance'] = unEnregistrement[8]
-            # unRapport['rap_lu'] = unEnregistrement[9]
+            unRapport['pra_ville'] = unEnregistrement[6]
+            unRapport['rap_date_redaction'] = '%04d-%02d-%02d' % (
+                unEnregistrement[7].year, unEnregistrement[7].month, unEnregistrement[7].day)
+            unRapport['mot_libelle'] = unEnregistrement[8]
+            unRapport['rap_coef_confiance'] = unEnregistrement[9]
+            unRapport['rap_lu'] = unEnregistrement[10]
             rapports.append(unRapport)
 
         curseur.close()

@@ -5,10 +5,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import fr.gsb.rv.visiteur.ConsulterActivity
 import fr.gsb.rv.visiteur.MainActivity
-import fr.gsb.rv.visiteur.technique.Session
-import kotlin.system.exitProcess
+import fr.gsb.rv.visiteur.technique.SessionUser
 
 
 class DeconnectionDialog : DialogFragment() {
@@ -18,7 +16,7 @@ class DeconnectionDialog : DialogFragment() {
                 "Voulez vous vraiment vous déconnecter ?")
             .setPositiveButton("Oui") { _,_ ->
                 val i = Intent(this.context,  MainActivity::class.java)
-                Session.fermer()
+                SessionUser.fermer()
                 startActivity(i)
             }
             .setNegativeButton("Non"){ _,_ -> }
