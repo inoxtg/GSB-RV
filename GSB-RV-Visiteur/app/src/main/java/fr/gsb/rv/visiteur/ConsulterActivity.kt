@@ -1,5 +1,6 @@
 package fr.gsb.rv.visiteur
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +18,7 @@ import fr.gsb.rv.visiteur.entites.RapportVisite
 import fr.gsb.rv.visiteur.technique.Session
 import java.util.*
 
-class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
+class ConsulterActivity : AppCompatActivity() {
 
     val rapports = mutableListOf<RapportVisite>()
     var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
@@ -41,7 +42,11 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         //ARRAY DE RAPPORTS
         val lvRapports: ListView = findViewById(R.id.lvRapports)
         lvRapports.adapter = rapportsAdapter
-
+        lvRapports.setOnItemClickListener { adapterView, vue, position, id ->
+            Log.i("CLICK", "$position $id")
+            val rapChoisis: RapportVisite = rapports.get(position)
+            Log.v("RAPPORT CHOISIS", rapChoisis.toString())
+        }
     }
     fun seDeconnecter(vue: View) {
         DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
@@ -51,6 +56,9 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         RetourDialog().show(this.supportFragmentManager, RetourDialog.TAG)
     }
     fun validerDate(vue: View) {
+
+        rapports.clear()
+        rapportsAdapter.notifyDataSetChanged()
 
         val date: DatePicker = findViewById(R.id.datePicker)
         val month: Int = date.month + 1
@@ -63,7 +71,6 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
-                Log.i("Response length should be 12", response.length().toString())
                 var i = 0
                 while (i < response.length()){
 
@@ -79,6 +86,7 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                     rapportVisite.numero = Integer.parseInt(response.getJSONObject(i).getString("rap_num"))
                     rapportVisite.bilan = response.getJSONObject(i).getString("rap_bilan")
                     rapportVisite.dateVisite = response.getJSONObject(i).getString("rap_date_visite")
+                    rapportVisite.dateRedac = response.getJSONObject(i).getString("")
 
                     rapports.add(rapportVisite)
                     i += 1
@@ -91,8 +99,5 @@ class ConsulterActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 Toast.makeText(this, "Aucun rapports trouvé pour le mois et l'année séléctionnés", Toast.LENGTH_LONG).show()
             })
         requestQueue.add(request)
-    }
-    override fun onItemClick(parent: AdapterView<*>, vue: View, position: Int, id: Long) {
-        TODO("Not yet implemented")
     }
 }

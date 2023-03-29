@@ -5,6 +5,7 @@ import mysql.connector
 
 connexionBD = None
 
+
 def getConnexionBD():
     global connexionBD
     try:
@@ -46,6 +47,7 @@ def seConnecter(matricule, mdp):
     except:
         return None
 
+
 def getRapportsVisite(matricule, mois, annee):
     try:
         curseur = getConnexionBD().cursor()
@@ -57,10 +59,15 @@ def getRapportsVisite(matricule, mois, annee):
                         p.pra_nom ,
                         p.pra_prenom ,
                         p.pra_cp ,
-                        p.pra_ville
+                        p.pra_ville ,
+                        rv.rap_date_redaction ,
+                        m.mot_libelle ,
+                        rv.rap_coef_confiance ,
+                        rv.rap_lu 
                     from RapportVisite as rv
                     inner join Praticien as p
                     on p.pra_num = rv.pra_num
+                    inner join Motif m on rv.mot_num = m.mot_num
                     where rv.vis_matricule = %s
                     and MONTH(rv.rap_date_visite) = %s
                     and YEAR(rv.rap_date_visite) = %s
@@ -76,12 +83,17 @@ def getRapportsVisite(matricule, mois, annee):
             unRapport = {}
             unRapport['rap_num'] = unEnregistrement[0]
             unRapport['rap_date_visite'] = '%04d-%02d-%02d' % (
-            unEnregistrement[1].year, unEnregistrement[1].month, unEnregistrement[1].day)
+                unEnregistrement[1].year, unEnregistrement[1].month, unEnregistrement[1].day)
             unRapport['rap_bilan'] = unEnregistrement[2]
             unRapport['pra_nom'] = unEnregistrement[3]
             unRapport['pra_prenom'] = unEnregistrement[4]
             unRapport['pra_cp'] = unEnregistrement[5]
             unRapport['pra_ville'] = unEnregistrement[5]
+            # # unRapport['rap_date_redaction'] = '%04d-%02d-%02d' % (
+            # #     unEnregistrement[6].year, unEnregistrement[6].month, unEnregistrement[6].day)
+            # # unRapport['mot_libelle'] = unEnregistrement[7]
+            # unRapport['rap_coef_confiance'] = unEnregistrement[8]
+            # unRapport['rap_lu'] = unEnregistrement[9]
             rapports.append(unRapport)
 
         curseur.close()
