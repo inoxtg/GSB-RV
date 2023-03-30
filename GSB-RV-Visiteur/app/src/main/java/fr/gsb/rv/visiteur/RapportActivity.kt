@@ -1,6 +1,7 @@
 package fr.gsb.rv.visiteur
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,15 +12,13 @@ import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import fr.gsb.rv.visiteur.adapteurs.MedicamentsAdapter
 import fr.gsb.rv.visiteur.adapteurs.RapportAdapter
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
-import fr.gsb.rv.visiteur.entites.MedicamentOffert
-import fr.gsb.rv.visiteur.entites.Praticien
-import fr.gsb.rv.visiteur.entites.RapportVisite
-import fr.gsb.rv.visiteur.entites.Visiteur
+import fr.gsb.rv.visiteur.entites.*
 import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import java.io.Serializable
@@ -44,6 +43,10 @@ class RapportActivity : AppCompatActivity() {
         this.fillListViewWithMedicaments()
         this.fillRapportsInformations()
         lvMedicaments.adapter = this.medicamentsAdapter
+        lvMedicaments.setOnItemClickListener { adapterView, vue, position, id ->
+            var medicamentChoisis: Medicament = this.getLeMedicament(position)
+            Log.i("MEDICAMENT", medicamentChoisis.toString())
+        }
 
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)
@@ -88,13 +91,14 @@ class RapportActivity : AppCompatActivity() {
                 while (i < response.length()) {
 
                     val medicament = MedicamentOffert()
-                    medicament.nom = response.getJSONObject(i).getString("med_nomcommercial")
+                    medicament.leMedicament.nom = response.getJSONObject(i).getString("med_nomcommercial")
+                    medicament.leMedicament.depotLegal = response.getJSONObject(i).getString("med_depotlegal")
                     medicament.quantite = Integer.parseInt(response.getJSONObject(i).getString("off_quantite"))
 
                     medicamentOffert.add(medicament)
                     i += 1
                 }
-                medicamentOffert.sortBy {  it.nom  }
+                medicamentOffert.sortBy {  it.leMedicament.nom  }
                 medicamentsAdapter.notifyDataSetChanged()
             },
             {
@@ -102,7 +106,27 @@ class RapportActivity : AppCompatActivity() {
             })
         requestQueue.add(request)
     }
-
+    fun getLeMedicament(position: Int): Medicament {
+        val medicamentChoisis = Medicament()
+        val code: String = this.medicamentOffert[position].leMedicament.depotLegal
+        val url = "$ip/medicament/$code"
+        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                medicamentChoisis.depotLegal = code
+                medicamentChoisis.nom = response.getString("med_nomcommercial")
+                medicamentChoisis.code = response.getString("fam_code")
+                medicamentChoisis.composition = response.getString("med_composition")
+                medicamentChoisis.effet = response.getString("med_effets")
+                medicamentChoisis.indication = response.getString("med_contreindic")
+            },
+            {
+                Log.i("Error : ", it.toString())
+            })
+        requestQueue.add(request)
+        return medicamentChoisis
+    }
     fun seDeconnecter(vue: View) {
         DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
     }

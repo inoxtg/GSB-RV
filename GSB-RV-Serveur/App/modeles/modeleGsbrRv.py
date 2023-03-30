@@ -48,6 +48,40 @@ def seConnecter(matricule, mdp):
         return None
 
 
+
+def getMedicamentByDepotLegal(depotlegal):
+    try:
+        curseur = getConnexionBD().cursor()
+        requete = '''
+                 SELECT 
+                    med_depotlegal , 
+                    med_nomcommercial , 
+                    fam_code , 
+                    med_composition , 
+                    med_effets , 
+                    med_contreindic
+                FROM Medicament
+                WHERE med_depotlegal LIKE %s
+                    '''
+
+        curseur.execute(requete, (depotlegal,))
+        enregistrement = curseur.fetchone()
+
+        unMedicament = {}
+        if enregistrement != None:
+            unMedicament['med_depotlegal'] = enregistrement[0]
+            unMedicament['med_nomcommercial'] = enregistrement[1]
+            unMedicament['fam_code'] = enregistrement[2]
+            unMedicament['med_composition'] = enregistrement[3]
+            unMedicament['med_effets'] = enregistrement[4]
+            unMedicament['med_contreindic'] = enregistrement[5]
+
+        curseur.close()
+        return unMedicament
+
+    except:
+        return None
+
 def getRapportsVisite(matricule, mois, annee):
     try:
         curseur = getConnexionBD().cursor()
@@ -107,7 +141,7 @@ def getEchantillonsOfferts(matricule, numRapportVisite):
     try:
         curseur = getConnexionBD().cursor()
         requete = '''
-                    select med_nomcommercial , off_quantite
+                    select med_nomcommercial , off_quantite, o.med_depotlegal
                     from Offrir as o
                     inner join Medicament as m
                     on m.med_depotlegal = o.med_depotlegal
@@ -124,6 +158,7 @@ def getEchantillonsOfferts(matricule, numRapportVisite):
             uneOffre = {}
             uneOffre['med_nomcommercial'] = unEnregistrement[0]
             uneOffre['off_quantite'] = unEnregistrement[1]
+            uneOffre['med_depotlegal'] = unEnregistrement[2]
             offres.append(uneOffre)
 
         curseur.close()
@@ -159,33 +194,6 @@ def getPraticiens():
 
     except:
         return None
-
-
-def getMedicaments():
-    try:
-        curseur = getConnexionBD().cursor()
-        requete = '''
-                    select med_depotlegal , med_nomcommercial
-                    from Medicament
-                '''
-
-        curseur.execute(requete, ())
-
-        enregistrements = curseur.fetchall()
-
-        medicaments = []
-        for unEnregistrement in enregistrements:
-            unMedicament = {}
-            unMedicament['med_depotlegal'] = unEnregistrement[0]
-            unMedicament['med_nomcommercial'] = unEnregistrement[1]
-            medicaments.append(unMedicament)
-
-        curseur.close()
-        return medicaments
-
-    except:
-        return None
-
 
 def genererNumeroRapportVisite(matricule):
     try:

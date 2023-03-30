@@ -42,7 +42,7 @@ public class MedicamentsAdapter extends BaseAdapter {
         View rowView = View.inflate(context, R.layout.list_medicaments_offerts, null);
         MedicamentOffert med = listMedicaments.get(position);
         ((TextView)rowView.findViewById(R.id.textMedicaments))
-                .setText(med.getNom()
+                .setText(med.getLeMedicament().getNom()
                         + "  -  " + med.getQuantite());
         return rowView;
     }

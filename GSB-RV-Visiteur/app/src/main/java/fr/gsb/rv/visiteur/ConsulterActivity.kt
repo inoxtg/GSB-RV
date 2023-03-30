@@ -75,8 +75,6 @@ class ConsulterActivity : AppCompatActivity() {
                 var i = 0
                 while (i < response.length()){
 
-                    var lu: String
-
                     val praticien = Praticien()
                     praticien.nom = response.getJSONObject(i).getString("pra_nom")
                     praticien.prenom = response.getJSONObject(i).getString("pra_prenom")

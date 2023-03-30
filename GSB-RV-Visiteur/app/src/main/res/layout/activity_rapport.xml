@@ -191,10 +191,11 @@
         <ListView
                 android:id="@+id/lvMedicaments"
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 android:choiceMode="singleChoice"
                 android:divider="#96ffffff"
                 android:dividerHeight="1dp"
-                android:footerDividersEnabled="true"/>
+                android:clickable="true"
+                android:footerDividersEnabled="false"/>
     </LinearLayout>
 </RelativeLayout>
