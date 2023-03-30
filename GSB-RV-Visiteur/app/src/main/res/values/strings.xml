@@ -14,4 +14,5 @@
     <string name="mois">Mois</string>
     <string name="annee">Année</string>
     <string name="valider">valider</string>
+    <string name="medocsOffertsRapport">Medicaments offerts lors de cette visite :</string>
 </resources>

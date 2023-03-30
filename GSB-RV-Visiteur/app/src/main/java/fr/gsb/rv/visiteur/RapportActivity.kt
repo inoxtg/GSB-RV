@@ -1,5 +1,6 @@
 package fr.gsb.rv.visiteur
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,33 +29,52 @@ TODO : liste de medicaments cliquable avec modal d'information sur medoc, cf tab
  */
 class RapportActivity : AppCompatActivity() {
 
-    var thisVisiteur = Visiteur()
+    var thisVisiteur = SessionUser.getLevisiteur()
     val ip: String = BuildConfig.SERVER_URL
     val thisRapport = SessionRapport.getLeRapport()
 
     var medicamentOffert = mutableListOf<MedicamentOffert>()
     var medicamentsAdapter = MedicamentsAdapter(this@RapportActivity, medicamentOffert)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rapport)
 
-        thisVisiteur = SessionUser.getLevisiteur()
+        val lvMedicaments: ListView = findViewById(R.id.lvMedicaments)
+        this.fillListViewWithMedicaments()
+        this.fillRapportsInformations()
+        lvMedicaments.adapter = this.medicamentsAdapter
 
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)
 
         tvNomVisi.text = thisVisiteur.nom.uppercase(Locale.getDefault())
         tvPrenomVisi.text = thisVisiteur.prenom
-
-
-        val lvMedicaments: ListView = findViewById(R.id.lvMedicaments)
-        lvMedicaments.adapter = this.medicamentsAdapter
-
-        this.medicaments()
-
     }
 
-    fun medicaments(){
+    @SuppressLint("SetTextI18n")
+    fun fillRapportsInformations(){
+        val tvNumeroRapport: TextView = findViewById(R.id.tvRapportNumero)
+        val tvDateVisiteRapport: TextView = findViewById(R.id.tvRapportDateVisite)
+        val tvPraNom: TextView = findViewById(R.id.tvPraNom)
+        val tvPraPrenom: TextView = findViewById(R.id.tvPraPrenom)
+        val tvPraVille: TextView = findViewById(R.id.tvPraVille)
+        val tvPraCp: TextView = findViewById(R.id.tvPraCp)
+        val tvRapportDateRedaction: TextView = findViewById(R.id.tvRapportDateRedaction)
+        val tvRapportBilan: TextView = findViewById(R.id.tvRapportBilan)
+        val tvRapportMotif: TextView = findViewById(R.id.tvRapportMotif)
+
+        tvNumeroRapport.text = thisRapport.numero.toString()
+        tvDateVisiteRapport.text = "Le : " + thisRapport.dateVisite
+        tvPraNom.text = thisRapport.lePraticien.nom
+        tvPraPrenom.text = thisRapport.lePraticien.prenom
+        tvPraVille.text = thisRapport.lePraticien.ville
+        tvPraCp.text = thisRapport.lePraticien.cp
+        tvRapportDateRedaction.text = thisRapport.dateRedac
+        tvRapportBilan.text = thisRapport.bilan
+        tvRapportMotif.text = thisRapport.motif
+    }
+    fun fillListViewWithMedicaments(){
 
         medicamentOffert.clear()
 
@@ -72,22 +92,15 @@ class RapportActivity : AppCompatActivity() {
                     medicament.quantite = Integer.parseInt(response.getJSONObject(i).getString("off_quantite"))
 
                     medicamentOffert.add(medicament)
-
                     i += 1
                 }
+                medicamentOffert.sortBy {  it.nom  }
+                medicamentsAdapter.notifyDataSetChanged()
             },
             {
                 Log.i("Error : ", it.toString())
             })
         requestQueue.add(request)
-
-        medicamentOffert.sortBy {  it.nom  }
-        var i = 0
-        while( i < medicamentOffert.size){
-            Log.v("MEDICAMENTS", medicamentOffert[i].toString())
-            i += 1
-        }
-        medicamentsAdapter.notifyDataSetChanged()
     }
 
     fun seDeconnecter(vue: View) {

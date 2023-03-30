@@ -28,7 +28,7 @@ public class MedicamentsAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public MedicamentOffert getItem(int position) {
         return listMedicaments.get(position);
     }
 

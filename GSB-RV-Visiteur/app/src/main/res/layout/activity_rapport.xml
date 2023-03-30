@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_img_3"/>
+                android:src="@drawable/nature_img_12"/>
     </FrameLayout>
     <LinearLayout
             android:layout_width="wrap_content"
@@ -50,20 +50,151 @@
             android:layout_height="20dp"
             android:id="@+id/btnSeDeconnecter"/>
     </LinearLayout>
-
     <LinearLayout
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="90dp"
-            android:layout_marginBottom="150dp">
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="60dp"
+                android:layout_gravity="center">
+            <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/tvRapportNumero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="NUMERO"
+                    android:textColor="#96ffffff"
+                    android:textSize="22sp"/>
+            <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/tvRapportDateVisite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="DATE VISITE"
+                    android:textColor="#96ffffff"
+                    android:textSize="22sp"/>
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="Praticien : "
+                android:textStyle="bold"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/tvPraNom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/gotham"
+                    android:text="PRA_NOM"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/tvPraPrenom"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="PRA_PRENOM"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/tvPraVille"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="PRA_VILLE"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/tvPraCp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="PRA_CP"
+                    android:textColor="#96ffffff"
+                    android:textSize="16sp"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="Date Redaction :"
+                android:textStyle="bold"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <TextView
+                android:id="@+id/tvRapportDateRedaction"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="DATE REDACTION"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="Motif : "
+                android:textStyle="bold"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <TextView
+                android:id="@+id/tvRapportMotif"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="MOTIF"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="Bilan : "
+                android:textColor="#96ffffff"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+        <TextView
+                android:id="@+id/tvRapportBilan"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="BILAN"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:textStyle="bold"
+                android:text="@string/medocsOffertsRapport"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
         <ListView
                 android:id="@+id/lvMedicaments"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
                 android:choiceMode="singleChoice"
                 android:divider="#96ffffff"
                 android:dividerHeight="1dp"
-                android:footerDividersEnabled="false"/>
+                android:footerDividersEnabled="true"/>
     </LinearLayout>
 </RelativeLayout>

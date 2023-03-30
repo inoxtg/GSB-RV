@@ -27,7 +27,7 @@ public class RapportAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public RapportVisite getItem(int position) {
         return listRapports.get(position);
     }
 
