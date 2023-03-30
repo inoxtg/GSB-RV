@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import fr.gsb.rv.visiteur.ConsulterActivity
 import fr.gsb.rv.visiteur.MainActivity
 import fr.gsb.rv.visiteur.technique.SessionRapport
+import fr.gsb.rv.visiteur.technique.SessionUser
 import kotlin.system.exitProcess
 
 

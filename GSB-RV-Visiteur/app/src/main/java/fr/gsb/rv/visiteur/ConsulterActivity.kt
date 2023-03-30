@@ -21,7 +21,7 @@ import java.util.*
 
 class ConsulterActivity : AppCompatActivity() {
 
-    val rapports = mutableListOf<RapportVisite>()
+    var rapports = mutableListOf<RapportVisite>()
     var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
 
 

@@ -18,6 +18,12 @@ class SessionUser
         fun fermer() {
             sessionUser = null
         }
+        fun estOuverte(): Boolean{
+            if(this.getLevisiteur() != null){
+                return true
+            }
+            return false
+        }
     }
     override fun toString(): String {
         return "Session{leVisiteur=$leVisiteur, session=$sessionUser}"
