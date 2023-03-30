@@ -24,11 +24,9 @@ class ConsulterActivity : AppCompatActivity() {
 
     var rapports = mutableListOf<RapportVisite>()
     var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
-
     var thisVisiteur = Visiteur()
-
-
     val ip: String = BuildConfig.SERVER_URL
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consulter)
