@@ -11,17 +11,13 @@ import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import kotlin.system.exitProcess
 
-/*
-    TODO : PROBLEME DE SESSION SUR RETOUR EN ARRIERE
- */
-
 class RetourDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(requireContext())
             .setMessage(
                 "Voulez vous vraiment vous revenir en arrière ?")
             .setPositiveButton("Oui") { _,_ ->
-                exitProcess(-1)
+                this.activity?.finish()
             }
             .setNegativeButton("Non"){ _,_ -> }
             .setCancelable(true)
