@@ -15,19 +15,22 @@ import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.MedicamentOffert
 import fr.gsb.rv.visiteur.entites.Praticien
 import fr.gsb.rv.visiteur.entites.RapportVisite
+import fr.gsb.rv.visiteur.entites.Visiteur
 import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import java.io.Serializable
 import java.util.*
 
 class RapportActivity : AppCompatActivity() {
-    
-    val thisVisiteur = SessionUser.getLevisiteur()
+
+    var thisVisiteur = Visiteur()
     val ip: String = BuildConfig.SERVER_URL
     val thisRapport = SessionRapport.getLeRapport()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rapport)
+
+        thisVisiteur = SessionUser.getLevisiteur()
 
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)
         val tvPrenomVisi: TextView = findViewById(R.id.prenomVisi)

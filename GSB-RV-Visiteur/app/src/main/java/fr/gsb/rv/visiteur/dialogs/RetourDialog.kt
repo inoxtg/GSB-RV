@@ -11,6 +11,9 @@ import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import kotlin.system.exitProcess
 
+/*
+    TODO : PROBLEME DE SESSION SUR RETOUR EN ARRIERE
+ */
 
 class RetourDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =

@@ -15,6 +15,7 @@ import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.Praticien
 import fr.gsb.rv.visiteur.entites.RapportVisite
+import fr.gsb.rv.visiteur.entites.Visiteur
 import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import java.util.*
@@ -24,14 +25,15 @@ class ConsulterActivity : AppCompatActivity() {
     var rapports = mutableListOf<RapportVisite>()
     var rapportsAdapter = RapportAdapter(this@ConsulterActivity, rapports)
 
+    var thisVisiteur = Visiteur()
 
-    val thisVisiteur = SessionUser.getLevisiteur()
+
     val ip: String = BuildConfig.SERVER_URL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consulter)
 
-
+        thisVisiteur = SessionUser.getLevisiteur()
         //NOM PRENOM SESSION
 
         val tvNomVisi: TextView = findViewById(R.id.nomVisi)

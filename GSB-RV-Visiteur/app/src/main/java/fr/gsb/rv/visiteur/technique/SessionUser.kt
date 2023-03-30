@@ -1,6 +1,9 @@
 package fr.gsb.rv.visiteur.technique
 import fr.gsb.rv.visiteur.entites.Visiteur
 class SessionUser
+/*
+    TODO : PROBLEME DE SESSION SUR RETOUR EN ARRIERE
+ */
     private constructor(
         private var leVisiteur: Visiteur?
     ) {
