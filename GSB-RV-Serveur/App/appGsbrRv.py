@@ -77,12 +77,12 @@ def getPraticiens():
     return reponse
 
 
-@app.route('/medicaments', methods=['GET'])
-def getMedicaments():
-    medicaments = mGsb.getMedicaments()
+@app.route('/medicament/<depotlegal>', methods=['GET'])
+def getMedicament(depotlegal):
+    medicament = mGsb.getMedicamentByDepotLegal(depotlegal)
 
-    if medicaments != None:
-        reponse = make_response(json.dumps(medicaments))
+    if medicament != None:
+        reponse = make_response(json.dumps(medicament))
         reponse.mimetype = 'application/json'
         reponse.status_code = 200
     else:
