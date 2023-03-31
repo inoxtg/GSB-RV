@@ -35,6 +35,7 @@ class MedicamentsInformationsDialog : DialogFragment() {
         fun newInstance(medicament: Medicament): MedicamentsInformationsDialog {
             val dialog = MedicamentsInformationsDialog()
             val args = Bundle()
+
             args.putString("depotLegal", medicament.depotLegal)
             args.putString("nom", medicament.nom)
             args.putString("effet", medicament.effet)

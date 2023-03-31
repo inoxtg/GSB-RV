@@ -68,7 +68,7 @@ class RapportActivity : AppCompatActivity() {
                     Log.i("LE MEDICAMENT response", medicamentChoisis.toString())
 
                     val dialog = MedicamentsInformationsDialog.newInstance(medicamentChoisis)
-                    dialog.show(supportFragmentManager, "")
+                    dialog.show(supportFragmentManager, "MedicamentsInformationsDialog")
 
                 },
                 {

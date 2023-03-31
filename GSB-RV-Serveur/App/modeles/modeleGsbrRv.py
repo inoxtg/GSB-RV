@@ -167,7 +167,40 @@ def getEchantillonsOfferts(matricule, numRapportVisite):
     except:
         return None
 
+def getMedicaments():
+    try:
+        curseur = getConnexionBD().cursor()
+        requete = '''
+                SELECT
+                    med_depotlegal ,
+                    med_nomcommercial ,
+                    fam_code ,
+                    med_composition ,
+                    med_effets ,
+                    med_contreindic
+                FROM Medicament
+                  '''
 
+        curseur.execute(requete, ())
+
+        enregistrements = curseur.fetchall()
+
+        medicaments = []
+        for unEnregistrement in enregistrements:
+            unMedicament = {}
+            unMedicament['med_depotlegal'] = unEnregistrement[0]
+            unMedicament['med_nomcommercial'] = unEnregistrement[1]
+            unMedicament['fam_code'] = unEnregistrement[2]
+            unMedicament['med_composition'] = unEnregistrement[3]
+            unMedicament['med_effets'] = unEnregistrement[4]
+            unMedicament['med_contreindic'] = unEnregistrement[5]
+            medicaments.append(unMedicament)
+
+        curseur.close()
+        return medicaments
+
+    except:
+        return None
 def getPraticiens():
     try:
         curseur = getConnexionBD().cursor()
