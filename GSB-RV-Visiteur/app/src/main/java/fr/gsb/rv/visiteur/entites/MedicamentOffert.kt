@@ -6,6 +6,6 @@ class MedicamentOffert(
 ) {
     constructor(): this (Medicament(),-1)
     override fun toString(): String {
-        return "MedicamentOffert(nom='${leMedicament.toString()}', quantite=$quantite)"
+        return "MedicamentOffert(nom='$leMedicament', quantite=$quantite)"
     }
 }

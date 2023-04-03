@@ -20,9 +20,7 @@ import fr.gsb.rv.visiteur.entites.*
 import fr.gsb.rv.visiteur.technique.SessionRapport
 import fr.gsb.rv.visiteur.technique.SessionUser
 import java.util.*
-/*
-TODO : liste de medicaments cliquable avec modal d'information sur medoc, cf table
- */
+
 class RapportActivity : AppCompatActivity() {
 
     var thisVisiteur = SessionUser.getLevisiteur()

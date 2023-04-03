@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="60dp"
                 android:layout_marginBottom="60dp"
                 android:layout_gravity="center">
             <TextView
@@ -81,6 +82,11 @@
                     android:textColor="#96ffffff"
                     android:textSize="22sp"/>
         </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2dp"
+                android:background="#96ffffff" />
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,13 +94,14 @@
                 android:text="Praticien : "
                 android:textStyle="bold"
                 android:textColor="#96ffffff"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
             <TextView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/tvPraNom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,21 +137,26 @@
                     android:text="PRA_CP"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-        <TextView
+        <View
                 android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="Date Redaction :"
                 android:textStyle="bold"
                 android:textColor="#96ffffff"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
             <TextView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/tvRapportDateRedaction"
                     android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
@@ -153,21 +165,26 @@
                     android:text="DATE REDACTION"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-        <TextView
+        <View
                 android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="Motif : "
                 android:textStyle="bold"
                 android:textColor="#96ffffff"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
             <TextView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/tvRapportMotif"
                     android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
@@ -176,21 +193,26 @@
                     android:text="MOTIF"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-        <TextView
+        <View
                 android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:text="Bilan : "
                 android:textColor="#96ffffff"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
             <TextView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/tvRapportBilan"
                     android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
@@ -199,15 +221,19 @@
                     android:text="BILAN"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-        <TextView
+        <View
                 android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"
                 android:textStyle="bold"
                 android:text="@string/medocsOffertsRapport"
                 android:textColor="#96ffffff"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
