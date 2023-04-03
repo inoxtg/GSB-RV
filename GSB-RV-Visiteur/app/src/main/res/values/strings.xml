@@ -15,4 +15,9 @@
     <string name="annee">Année</string>
     <string name="valider">valider</string>
     <string name="medocsOffertsRapport">Medicaments offerts :</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="nom_du_praticien">Nom du praticien</string>
+    <string name="praticien">Praticien :</string>
+    <string name="validerCaps">Valider</string>
+    <string name="motif">Motif...</string>
 </resources>

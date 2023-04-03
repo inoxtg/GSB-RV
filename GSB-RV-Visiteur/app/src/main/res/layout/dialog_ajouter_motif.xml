@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="@android:dimen/dialog_min_width_major"
+             android:background="">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshapewhitebg">
+
+        <AutoCompleteTextView
+                android:id="@+id/inputMotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/motif"
+                android:textColorHint="#96ffffff"
+                android:textColor="#96ffffff"
+                android:imeOptions="actionDone"
+                android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</FrameLayout>

@@ -31,7 +31,8 @@ class MenuActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun saisir(vue: View){
-
+        val intent = Intent(this@MenuActivity, SaisirActivity::class.java)
+        startActivity(intent)
     }
     fun help(vue: View){
         HelpDialog().show(this.supportFragmentManager, HelpDialog.TAG)
