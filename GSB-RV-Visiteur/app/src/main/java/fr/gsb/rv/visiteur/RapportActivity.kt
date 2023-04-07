@@ -46,7 +46,7 @@ class RapportActivity : AppCompatActivity() {
         this.fillListViewWithMedicaments()
         this.fillRapportsInformations()
         lvMedicaments.adapter = this.medicamentsAdapter
-        lvMedicaments.setOnItemClickListener { adapterView, vue, position, id ->
+        lvMedicaments.setOnItemClickListener { _, _, position, _ ->
 
             val code: String = this.medicamentOffert[position].leMedicament.depotLegal
             val url = "$ip/medicament/$code"

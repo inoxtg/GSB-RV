@@ -248,7 +248,7 @@
                     android:onClick="ajouterMotif"
                     android:background="@drawable/ajouter_medicament"
                     android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:id="@+id/btnAjouterMotif"/>
             <Spinner
                     android:id="@+id/spinnerMotif"
@@ -256,6 +256,15 @@
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/btn_dropdown"
                     android:spinnerMode="dropdown"/>
+            <TextView
+                    android:id="@+id/tvAutreMotif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:textColor="#96ffffff"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
         </LinearLayout>
         <View
                 android:layout_width="match_parent"
@@ -301,20 +310,20 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
-            <Button
-                    android:layout_gravity="center"
-                    android:background="@drawable/ajouter_medicament"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/btnAjouter"/>
-            <ListView
-                    android:id="@+id/lvMedicmentsAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:choiceMode="singleChoice"
-                    android:divider="#96ffffff"
-                    android:dividerHeight="1dp"
-                    android:clickable="true"
-                    android:footerDividersEnabled="true"/>
+        <Spinner
+            android:id="@+id/spinnerMedicaments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+        <ListView
+            android:choiceMode="singleChoice"
+            android:id="@+id/lvMedicmentsAll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:divider="#96ffffff"
+            android:dividerHeight="1dp"
+            android:clickable="true"
+            android:footerDividersEnabled="true"/>
     </LinearLayout>
 </RelativeLayout>
