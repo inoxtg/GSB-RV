@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham"
-                    android:text="Code Postal..."
+                    android:hint="Code Postal..."
                     android:maxLength="18"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
@@ -254,8 +254,8 @@
                     android:id="@+id/spinnerMotif"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dialog"
+                    android:background="@android:drawable/spinner_background"/>
             <TextView
                     android:id="@+id/tvAutreMotif"
                     android:layout_width="match_parent"
@@ -263,6 +263,15 @@
                     android:fontFamily="@font/gotham"
                     android:textColor="#96ffffff"
                     android:textStyle="bold"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:id="@+id/tvMedicamentQte"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:textColor="#96ffffff"
+                    android:textStyle="bold"
+                    android:inputType="number"
                     android:textSize="18sp"/>
 
         </LinearLayout>
@@ -310,12 +319,12 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
-        <Spinner
-            android:id="@+id/spinnerMedicaments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown"/>
+        <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerMedicaments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/spinner_background"
+        />
         <ListView
             android:choiceMode="singleChoice"
             android:id="@+id/lvMedicmentsAll"

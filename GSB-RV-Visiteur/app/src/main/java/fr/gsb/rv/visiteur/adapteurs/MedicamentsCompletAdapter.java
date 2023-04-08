@@ -2,6 +2,8 @@ package fr.gsb.rv.visiteur.adapteurs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,8 +17,8 @@ import java.util.List;
 
 public class MedicamentsCompletAdapter extends BaseAdapter {
 
-    private List<Medicament> listMedicaments;
-    private Context context;
+    private final List<Medicament> listMedicaments;
+    private final Context context;
 
     public MedicamentsCompletAdapter(Context context, List listMedicaments){
         this.listMedicaments = listMedicaments;
@@ -40,11 +42,11 @@ public class MedicamentsCompletAdapter extends BaseAdapter {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = View.inflate(context, R.layout.list_medicaments_offerts, null);
+        @SuppressLint("ViewHolder") View rowView = View.inflate(context, android.R.layout.simple_list_item_single_choice, null);
         Medicament med = listMedicaments.get(position);
-        ((TextView)rowView.findViewById(R.id.textMedicaments))
+        ((TextView)rowView.findViewById(android.R.id.text1))
                 .setText(med.getNom()
-                        + "  -  " + med.getDepotLegal());
+                        + "    " + med.getDepotLegal());
         return rowView;
     }
 }
