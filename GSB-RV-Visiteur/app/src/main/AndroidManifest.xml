@@ -14,15 +14,7 @@
             android:roundIcon="@mipmap/icone_base"
             android:supportsRtl="true"
             android:theme="@style/Theme.GSBRVVisiteur"
-            android:usesCleartextTraffic="true"
-            tools:targetApi="31">
-        <activity
-                android:name=".testActivity"
-                android:exported="false">
-            <meta-data
-                    android:name="android.app.lib_name"
-                    android:value=""/>
-        </activity>
+            android:usesCleartextTraffic="true">
         <activity
                 android:name=".SaisirActivity"
                 android:exported="false">

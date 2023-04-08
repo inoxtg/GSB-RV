@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_img_11"/>
+                android:src="@drawable/nature_img_13"/>
     </FrameLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -60,6 +60,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
         <Button
+                android:onClick="valider"
                 android:layout_marginEnd="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="120dp"
@@ -84,14 +85,25 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
-        <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:text="@string/praticien"
-                android:textStyle="bold"
-                android:textColor="#96ffffff"
-                android:textSize="18sp"/>
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="Praticien : "
+                    android:textColor="#96ffffff"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            <Spinner
+                    android:id="@+id/spinnerPraticiens"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:spinnerMode="dialog"
+                    android:background="@drawable/base_add_red"/>
+        </LinearLayout>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -101,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                     android:id="@+id/tiPraNom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +124,7 @@
                     android:hint="Nom..."
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                     android:textColorHint="#96ffffff"
                     android:id="@+id/tiPraPrenom"
                     android:layout_marginStart="20dp"
@@ -133,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                     android:textColorHint="#96ffffff"
                     android:id="@+id/tiPraVille"
                     android:layout_marginStart="10dp"
@@ -144,7 +156,7 @@
                     android:maxLength="25"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                     android:textColorHint="#96ffffff"
                     android:id="@+id/tvPraCp"
                     android:layout_marginStart="20dp"
@@ -245,8 +257,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                    android:onClick="ajouterMotif"
-                    android:background="@drawable/ajouter_medicament"
+                    android:onClick="ajouterAutreMotif"
+                    android:background="@drawable/base_add_red"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/btnAjouterMotif"/>
@@ -302,6 +314,31 @@
                 android:textColorHint="#96ffffff"
                 android:textColor="#96ffffff"
                 android:textSize="16sp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:text="Coef Confiance : "
+                    android:textColor="#96ffffff"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            <Spinner
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/spinnerCoefConfiance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:background="@android:drawable/spinner_dropdown_background"/>
+        </LinearLayout>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"

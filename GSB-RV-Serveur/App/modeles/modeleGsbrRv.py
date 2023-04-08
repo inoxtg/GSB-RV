@@ -205,7 +205,7 @@ def getPraticiens():
     try:
         curseur = getConnexionBD().cursor()
         requete = '''
-                    select pra_num , pra_nom , pra_prenom , pra_ville
+                    select pra_num , pra_nom , pra_prenom , pra_ville, pra_cp
                     from Praticien
                 '''
 
@@ -220,6 +220,7 @@ def getPraticiens():
             unPraticien['pra_nom'] = unEnregistrement[1]
             unPraticien['pra_prenom'] = unEnregistrement[2]
             unPraticien['pra_ville'] = unEnregistrement[3]
+            unPraticien['pra_cp'] = unEnregistrement[4]
             praticiens.append(unPraticien)
 
         curseur.close()
@@ -278,7 +279,58 @@ def enregistrerRapportVisite(matricule, numPraticien, dateVisite, bilan):
     else:
         return None
 
-
+# def enregistrerVraiRapportVisite(mat, praNum, motNum, dateVisite, dateRedac, bilan, coefConfiance, autreMotif="-1"):
+#     numRapportVisite = genererNumeroRapportVisite(mat)
+#
+#     if numRapportVisite != None:
+#
+#         try:
+#             curseur = getConnexionBD().cursor()
+#
+#             if autreMotif == "-1":
+#                 requete = '''
+#                        insert into RapportVisite(
+#                        vis_matricule ,
+#                        rap_num ,
+#                        rap_date_visite ,
+#                        rap_date_redaction ,
+#                        rap_bilan ,
+#                        pra_num ,
+#                        rap_coef_confiance ,
+#                        mot_num
+#                         )
+#                        values( %s , %s , %s , %s , %s , %s , %s , %s )
+#                        '''
+#                 curseur.execute(requete,
+#                                 (mat, numRapportVisite, dateVisite, dateRedac, bilan, praNum, coefConfiance, motNum))
+#
+#             else:
+#                 requete = '''
+#                         insert into RapportVisite(
+#                         vis_matricule ,
+#                         rap_num ,
+#                         rap_date_visite ,
+#                         rap_date_redaction ,
+#                         rap_bilan ,
+#                         pra_num ,
+#                         rap_coef_confiance ,
+#                         rap_autre_motif
+#                          )
+#                         values( %s , %s , %s , %s , %s , %s , %s , %s )
+#                         '''
+#                 curseur.execute(requete,
+#                                 (mat, numRapportVisite, dateVisite, dateRedac, bilan, praNum, coefConfiance, autreMotif, ))
+#
+#             connexionBD.commit()
+#             curseur.close()
+#
+#             return numRapportVisite
+#
+#         except:
+#             return None
+#
+#     else:
+#         return None
 def enregistrerEchantillonsOfferts(matricule, numRapport, echantillons):
     try:
         curseur = getConnexionBD().cursor()
