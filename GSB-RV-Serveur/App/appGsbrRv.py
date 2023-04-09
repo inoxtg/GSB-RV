@@ -150,7 +150,8 @@ def addEchantillonsOfferts(matricule, numRapport):
 
     reponse = make_response('')
     if nbOffres != None:
-        reponse = make_response(json.dumps({'nombreOffres': nbOffres}))
+        response_dict = {"nombreOffres": nbOffres}
+        response = make_response(json.dumps(response_dict))
         reponse.mimetype = 'application/json'
         reponse.status_code = 200
     else:

@@ -1,6 +1,7 @@
 package fr.gsb.rv.visiteur
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
@@ -13,7 +14,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
@@ -37,9 +37,10 @@ import java.util.*
 class SaisirActivity : AppCompatActivity() {
 
 
-    lateinit var thisVisiteur: Visiteur
     val ip: String = BuildConfig.SERVER_URL
-    lateinit var requestQueue: RequestQueue
+    private lateinit var requestQueue: RequestQueue
+    lateinit var thisVisiteur: Visiteur
+
 
     var coefConfiance: Int = -1
     val listCoef = mutableListOf<Int>(0,1,2,3,4,5)
@@ -375,16 +376,15 @@ class SaisirActivity : AppCompatActivity() {
     }
 
     //AJOUT
-    fun ajouterRapport(): Int{
+    fun ajouterRapport() {
+
         val url = "$ip/ajouter/rapports"
-        var numRapport: Int = -1
-        var numOffres: Int = -1
+
         val date: DatePicker = findViewById(R.id.datePickerDateVisite)
             val month: Int = date.month + 1
             val year: String = date.year.toString()
             val day: String = date.dayOfMonth.toString()
         val dateStr = "$year-$month-$day"
-
 
         val params = JSONObject()
 
@@ -399,53 +399,50 @@ class SaisirActivity : AppCompatActivity() {
         val requete = JsonObjectRequest(
             Request.Method.POST, url, params,
             {
-                numRapport = Integer.parseInt(it.getString("numRapport"))
-                numOffres = ajouterMedicaments(numRapport)
+                ajouterMedicaments(Integer.parseInt(it.getString("numRapport")))
+                Log.i("info rapport num : ", it.getString("numRapport"))
             },
             { error ->
                 Log.e("INFO POST RAPPORT", "Erreur HTTP :" + "--" + error.message + "--")
             }
         )
         requestQueue.add(requete)
-        return numOffres
     }
-    fun ajouterMedicaments(numRapport: Int): Int {
+    fun ajouterMedicaments(numRapport: Int){
 
         val matricule = thisVisiteur.matricule
         val url = "$ip/rapports/echantillons/$matricule/$numRapport"
         val params = JSONArray()
-        var numMedicamentOffert: Int = -1
-
+        //PARAMS
         var i = 0
         while ( i < medicamentOffertsChoisis.size){
             val echantillons = JSONObject()
+
             echantillons.put("med_depotlegal", medicamentOffertsChoisis[i].leMedicament.depotLegal)
             echantillons.put("off_quantite", medicamentOffertsChoisis[i].quantite)
 
             params.put(echantillons)
             i += 1
         }
+
         val requete = JsonArrayRequest(
             Request.Method.POST, url, params,
             {
-                numMedicamentOffert = Integer.parseInt(it.getJSONObject(0).getString("nombreOffres"))
+                Log.i("info medoc num : ", it.get(0).toString())
             },
             { error ->
-                Log.e("INFO POST RAPPORT", "Erreur HTTP :" + "--" + error.message + "--")
+                Log.e("INFO POST MEdicaments", "Erreur HTTP :" + "--" + error.message + "--")
             }
         )
         requestQueue.add(requete)
-        return numMedicamentOffert
     }
-
     @SuppressLint("SimpleDateFormat")
     fun valider(vue: View){
         val rapport: Int
         val medicamentsOfferts: Int
         if(this.verifierAvantValider()) {
-            rapport = ajouterRapport()
-//            medicamentsOfferts = ajouterMedicaments(rapport)
-//            Log.i("INFO medicaments offer", medicamentsOfferts.toString())
+            ajouterRapport()
+            Thread.sleep(500)
         }
     }
 }
