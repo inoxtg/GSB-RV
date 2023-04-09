@@ -376,6 +376,7 @@ class SaisirActivity : AppCompatActivity() {
     fun ajouterRapport(): Int{
         val url = "$ip/ajouter/rapports"
         var numRapport: Int = -1
+        var numOffres: Int = -1
         val date: DatePicker = findViewById(R.id.datePickerDateVisite)
             val month: Int = date.month + 1
             val year: String = date.year.toString()
@@ -397,13 +398,14 @@ class SaisirActivity : AppCompatActivity() {
             Request.Method.POST, url, params,
             {
                 numRapport = Integer.parseInt(it.getString("numRapport"))
+                numOffres = ajouterMedicaments(numRapport)
             },
             { error ->
                 Log.e("INFO POST RAPPORT", "Erreur HTTP :" + "--" + error.message + "--")
             }
         )
         requestQueue.add(requete)
-        return numRapport
+        return numOffres
     }
     fun ajouterMedicaments(numRapport: Int): Int {
 

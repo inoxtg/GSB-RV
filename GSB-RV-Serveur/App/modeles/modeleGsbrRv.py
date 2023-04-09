@@ -325,16 +325,20 @@ def enregistrerEchantillonsOfferts(matricule, numRapport, echantillons):
             values( %s , %s , %s , %s )
             '''
 
-        nbOffresInserees = 0
+        nbOffres = 0
+        offres = []
+        uneOffre = {}
         for offre in echantillons.items():
             curseur.execute(requete, (matricule, numRapport, offre[0], offre[1]))
-            nbOffresInserees += curseur.rowcount
+            nbOffres += curseur.rowcount
 
         connexionBD.commit()
-
         curseur.close()
 
-        return nbOffresInserees
+        uneOffre['offre'] = nbOffres
+        offres.append(uneOffre)
+
+        return offres
 
     except:
         return None
