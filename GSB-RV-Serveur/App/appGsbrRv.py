@@ -119,6 +119,29 @@ def addRapportVisite():
         reponse.status_code = 409
     return reponse
 
+@app.route('/ajouter/rapports', methods=['POST'])
+def addVraiRapportVisite():
+    unRapport = json.loads(request.data)
+    numRapport = mGsb.enregistrerVraiRapportVisite(
+        unRapport['matricule'],
+        unRapport['praticien'],
+        unRapport['motif'],
+        unRapport['dateVisite'],
+        unRapport['dateRedaction'],
+        unRapport['bilan'],
+        unRapport['coefConfiance'])
+
+    if numRapport != None:
+
+        reponse = make_response(json.dumps({'numRapport': numRapport}))
+        reponse.mimetype = 'application/json'
+        reponse.status_code = 200
+
+        return reponse
+    else:
+        reponse = make_response('')
+        reponse.mimetype = 'application/json'
+        reponse.status_code = 409
 
 @app.route('/rapports/echantillons/<matricule>/<numRapport>', methods=['POST'])
 def addEchantillonsOfferts(matricule, numRapport):
@@ -127,8 +150,9 @@ def addEchantillonsOfferts(matricule, numRapport):
 
     reponse = make_response('')
     if nbOffres != None:
-        reponse.headers['Location'] = '/rapports/echantillons/%s/%s' % (matricule, numRapport)
-        reponse.status_code = 201
+        reponse = make_response(json.dumps({'nombreOffres': nbOffres}))
+        reponse.mimetype = 'application/json'
+        reponse.status_code = 200
     else:
         reponse.status_code = 409
     return reponse

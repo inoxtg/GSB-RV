@@ -89,20 +89,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham"
-                    android:text="Praticien : "
-                    android:textColor="#96ffffff"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
             <Spinner
                     android:id="@+id/spinnerPraticiens"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:spinnerMode="dialog"
                     android:background="@drawable/base_add_red"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gotham"
+                    android:text="Praticien : "
+                    android:textColor="#96ffffff"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
         </LinearLayout>
         <View
                 android:layout_width="match_parent"
@@ -239,14 +239,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#96ffffff" />
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:text="Motif : "
-                android:textStyle="bold"
-                android:textColor="#96ffffff"
-                android:textSize="18sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                    android:onClick="ajouterAutreMotifDialog"
+                    android:background="@drawable/base_add_red"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btnAjouterMotif"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gotham"
+                    android:text="Motif : "
+                    android:textStyle="bold"
+                    android:textColor="#96ffffff"
+                    android:textSize="18sp"/>
+        </LinearLayout>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -256,12 +267,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
-                    android:onClick="ajouterAutreMotif"
-                    android:background="@drawable/base_add_red"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/btnAjouterMotif"/>
+
             <Spinner
                     android:id="@+id/spinnerMotif"
                     android:layout_width="match_parent"
@@ -306,7 +312,7 @@
                 android:background="#96ffffff" />
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tvRapportBilan"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham"

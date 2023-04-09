@@ -1,7 +1,7 @@
 package fr.gsb.rv.visiteur
 
+import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
@@ -16,6 +16,7 @@ import androidx.core.view.isVisible
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.textfield.TextInputEditText
 import fr.gsb.rv.visiteur.adapteurs.MedicamentsAdapter
@@ -26,14 +27,18 @@ import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.*
 import fr.gsb.rv.visiteur.technique.SessionUser
+import org.json.JSONArray
+import org.json.JSONObject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class SaisirActivity : AppCompatActivity() {
 
+
     lateinit var thisVisiteur: Visiteur
     val ip: String = BuildConfig.SERVER_URL
+    lateinit var requestQueue: RequestQueue
 
     var coefConfiance: Int = -1
     val listCoef = mutableListOf<Int>(0,1,2,3,4,5)
@@ -63,6 +68,7 @@ class SaisirActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        requestQueue = Volley.newRequestQueue(this)
         praticiens = this.getLesPraticiens()
         medicaments = this.getLesMedicaments()
         motifs = this.getMotif()
@@ -152,7 +158,7 @@ class SaisirActivity : AppCompatActivity() {
         spinnerMedicament.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if(p2 != 0 || medicaments[p2] != medTest ){
-                    ajouterMedicament(medicaments[p2])
+                    ajouterMedicamentDialog(medicaments[p2])
                     adapaterLvMedicament.notifyDataSetChanged()
                 }else{
                     Toast.makeText(this@SaisirActivity,"Choissisez un médicament...",Toast.LENGTH_SHORT).show()
@@ -177,17 +183,22 @@ class SaisirActivity : AppCompatActivity() {
         val tvDateRedac: TextView = findViewById(R.id.tiRapportDateRedaction)
         tvDateRedac.text = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
     }
-
-    fun valider(vue: View){
+    //VERIFICATION DATA
+    fun verifierAvantValider(): Boolean{
         if(autreMotif == "" && motif.numero == -1){
             this.toastWarning("Motif Invalide")
+            return false
         }else if(praticien.numero == -1){
             this.toastWarning("Praticien Invalide")
+            return false
         }else if(coefConfiance == -1){
             this.toastWarning("Coef Confiance Invalide")
+            return false
         }else if(findViewById<TextInputEditText>(R.id.tvRapportBilan).text.toString() == ""){
             this.toastWarning("Bilan Invalide")
+            return false
         }
+        return true
     }
     //DIALOG
     fun seDeconnecter(vue: View) {
@@ -196,7 +207,7 @@ class SaisirActivity : AppCompatActivity() {
     fun retour(vue: View) {
         RetourDialog().show(this.supportFragmentManager, RetourDialog.TAG)
     }
-    fun ajouterAutreMotif(vue: View){
+    fun ajouterAutreMotifDialog(vue: View){
         val text = EditText(this)
         text.hint = "Motif..."
         val tvMotif: TextView = findViewById(R.id.tvAutreMotif)
@@ -238,7 +249,7 @@ class SaisirActivity : AppCompatActivity() {
             }
             .show()
     }
-    fun ajouterMedicament(med: Medicament){
+    fun ajouterMedicamentDialog(med: Medicament){
         val qte = EditText(this)
         qte.inputType = InputType.TYPE_CLASS_NUMBER
         val medNom = med.nom
@@ -280,7 +291,6 @@ class SaisirActivity : AppCompatActivity() {
         val medicaments = mutableListOf<Medicament>()
         medicaments.add(medTest)
 
-        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -303,7 +313,7 @@ class SaisirActivity : AppCompatActivity() {
                 Log.i("Error Medicaments : ", it.toString())
             })
         requestQueue.add(request)
-        Log.i("info", medicaments.size.toString())
+
         return medicaments
     }
     fun getMotif(): MutableList<Motif> {
@@ -314,7 +324,6 @@ class SaisirActivity : AppCompatActivity() {
         val motifs = mutableListOf<Motif>()
         motifs.add(motTest)
 
-        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -330,6 +339,7 @@ class SaisirActivity : AppCompatActivity() {
             {
                 Log.i("Error Motif : ", it.toString())
             })
+
         requestQueue.add(request)
         return motifs
     }
@@ -340,7 +350,6 @@ class SaisirActivity : AppCompatActivity() {
         val praticiens = mutableListOf<Praticien>()
         praticiens.add(praTest)
 
-        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -361,5 +370,78 @@ class SaisirActivity : AppCompatActivity() {
             })
         requestQueue.add(request)
         return praticiens
+    }
+
+    //AJOUT
+    fun ajouterRapport(): Int{
+        val url = "$ip/ajouter/rapports"
+        var numRapport: Int = -1
+        val date: DatePicker = findViewById(R.id.datePickerDateVisite)
+            val month: Int = date.month + 1
+            val year: String = date.year.toString()
+            val day: String = date.dayOfMonth.toString()
+        val dateStr = "$year-$month-$day"
+
+
+        val params = JSONObject()
+
+        params.put("matricule", thisVisiteur.matricule)
+        params.put("praticien", praticien.numero.toString())
+        params.put("motif", motif.numero.toString())
+        params.put("dateVisite", dateStr)
+        params.put("dateRedaction", LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE).toString())
+        params.put("bilan", findViewById<TextInputEditText>(R.id.tvRapportBilan).text.toString())
+        params.put("coefConfiance", coefConfiance.toString())
+
+        val requete = JsonObjectRequest(
+            Request.Method.POST, url, params,
+            {
+                numRapport = Integer.parseInt(it.getString("numRapport"))
+            },
+            { error ->
+                Log.e("INFO POST RAPPORT", "Erreur HTTP :" + "--" + error.message + "--")
+            }
+        )
+        requestQueue.add(requete)
+        return numRapport
+    }
+    fun ajouterMedicaments(numRapport: Int): Int {
+
+        val matricule = thisVisiteur.matricule
+        val url = "$ip/rapports/echantillons/$matricule/$numRapport"
+        val params = JSONArray()
+        var numMedicamentOffert: Int = -1
+
+        var i = 0
+        while ( i < medicamentOffertsChoisis.size){
+            val echantillons = JSONObject()
+            echantillons.put("med_depotlegal", medicamentOffertsChoisis[i].leMedicament.depotLegal)
+            echantillons.put("off_quantite", medicamentOffertsChoisis[i].quantite)
+
+            params.put(echantillons)
+            i += 1
+        }
+        val requete = JsonArrayRequest(
+            Request.Method.POST, url, params,
+            {
+                numMedicamentOffert = Integer.parseInt(it.getJSONObject(0).getString("nombreOffres"))
+            },
+            { error ->
+                Log.e("INFO POST RAPPORT", "Erreur HTTP :" + "--" + error.message + "--")
+            }
+        )
+        requestQueue.add(requete)
+        return numMedicamentOffert
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun valider(vue: View){
+        val rapport: Int
+        val medicamentsOfferts: Int
+        if(this.verifierAvantValider()) {
+            rapport = ajouterRapport()
+//            medicamentsOfferts = ajouterMedicaments(rapport)
+//            Log.i("INFO medicaments offer", medicamentsOfferts.toString())
+        }
     }
 }
