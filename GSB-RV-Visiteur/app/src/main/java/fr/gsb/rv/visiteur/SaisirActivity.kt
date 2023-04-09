@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
@@ -70,7 +71,9 @@ class SaisirActivity : AppCompatActivity() {
 
         requestQueue = Volley.newRequestQueue(this)
         praticiens = this.getLesPraticiens()
+        Thread.sleep(500)
         medicaments = this.getLesMedicaments()
+        Thread.sleep(500)
         motifs = this.getMotif()
 
 
@@ -310,7 +313,7 @@ class SaisirActivity : AppCompatActivity() {
                 medicaments.sortBy {  it.nom  }
             },
             {
-                Log.i("Error Medicaments : ", it.toString())
+                Log.i("Error Medicaments : ", it.message.toString())
             })
         requestQueue.add(request)
 
@@ -339,7 +342,6 @@ class SaisirActivity : AppCompatActivity() {
             {
                 Log.i("Error Motif : ", it.toString())
             })
-
         requestQueue.add(request)
         return motifs
     }
@@ -366,7 +368,7 @@ class SaisirActivity : AppCompatActivity() {
                 }
             },
             {
-                Log.i("Error Motif : ", it.toString())
+                Log.i("Error Praticien : ", it.toString())
             })
         requestQueue.add(request)
         return praticiens
