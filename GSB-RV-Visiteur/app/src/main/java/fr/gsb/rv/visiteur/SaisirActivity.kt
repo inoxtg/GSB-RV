@@ -14,8 +14,10 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
+import com.android.volley.RetryPolicy
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -27,6 +29,7 @@ import fr.gsb.rv.visiteur.adapteurs.PraticiensAdapter
 import fr.gsb.rv.visiteur.dialogs.DeconnectionDialog
 import fr.gsb.rv.visiteur.dialogs.RetourDialog
 import fr.gsb.rv.visiteur.entites.*
+import fr.gsb.rv.visiteur.services.PraticiensService
 import fr.gsb.rv.visiteur.technique.SessionUser
 import org.json.JSONArray
 import org.json.JSONObject
@@ -40,7 +43,9 @@ class SaisirActivity : AppCompatActivity() {
     val ip: String = BuildConfig.SERVER_URL
     private lateinit var requestQueue: RequestQueue
     lateinit var thisVisiteur: Visiteur
-
+    val retryPolicy: DefaultRetryPolicy = DefaultRetryPolicy(
+        0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+    )
 
     var coefConfiance: Int = -1
     val listCoef = mutableListOf<Int>(0,1,2,3,4,5)
@@ -54,6 +59,7 @@ class SaisirActivity : AppCompatActivity() {
     var motif: Motif = Motif()
     var motTest: Motif = Motif(-1,"Motif : ")
 
+    lateinit var adapaterLvMedicament: MedicamentsAdapter
     var medicaments: MutableList<Medicament> = mutableListOf()
     var medicamentOffertsChoisis = mutableListOf<MedicamentOffert>()
     var medTest = Medicament(" ","Médicaments : "," "," "," "," ")
@@ -71,10 +77,12 @@ class SaisirActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         requestQueue = Volley.newRequestQueue(this)
+
+        Thread.sleep(100)
         praticiens = this.getLesPraticiens()
-        Thread.sleep(500)
+        Thread.sleep(750)
         medicaments = this.getLesMedicaments()
-        Thread.sleep(500)
+        Thread.sleep(750)
         motifs = this.getMotif()
 
 
@@ -86,9 +94,10 @@ class SaisirActivity : AppCompatActivity() {
         spinnerPraticien = findViewById(R.id.spinnerPraticiens)
         val adapterSpinnerPraticien = PraticiensAdapter(this@SaisirActivity, praticiens)
         spinnerPraticien.adapter = adapterSpinnerPraticien
+        spinnerPraticien.setSelection(0)
         spinnerPraticien.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if(p2 != 0 || praticiens[p2] != praTest ){
+                if(praticiens[p2] != praTest ){
                     praticien = praticiens[p2]
                     Log.i("info clicked", praticien.toString())
                     tvNomPra = findViewById(R.id.tiPraNom)
@@ -112,6 +121,7 @@ class SaisirActivity : AppCompatActivity() {
         // COEF SPINNER
 
         spinnerCoefConfiance = findViewById(R.id.spinnerCoefConfiance)
+        spinnerCoefConfiance.setSelection(0)
         spinnerCoefConfiance.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
@@ -129,10 +139,10 @@ class SaisirActivity : AppCompatActivity() {
         //LIST MEDICAMENTS AJOUTES
 
         lvMedicaments = findViewById(R.id.lvMedicmentsAll)
-        val adapaterLvMedicament = MedicamentsAdapter(this@SaisirActivity, medicamentOffertsChoisis)
+        adapaterLvMedicament = MedicamentsAdapter(this@SaisirActivity, medicamentOffertsChoisis)
         lvMedicaments.adapter = adapaterLvMedicament
         lvMedicaments.setOnItemClickListener { _, _, pos, _ ->
-            confirmationSuppression(medicamentOffertsChoisis[pos], adapaterLvMedicament)
+            confirmationSuppressionDialog(medicamentOffertsChoisis[pos], adapaterLvMedicament)
             adapaterLvMedicament.notifyDataSetChanged()
         }
 
@@ -141,9 +151,10 @@ class SaisirActivity : AppCompatActivity() {
         spinnerMotif= findViewById(R.id.spinnerMotif)
         val adapterSpinnerMotif = MotifAdapter(this@SaisirActivity, motifs)
         spinnerMotif.adapter = adapterSpinnerMotif
+        spinnerMotif.setSelection(0)
         spinnerMotif.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if(p2 != 0 || motifs[p2] != motTest){
+                if(motifs[p2] != motTest){
                     motif = motifs[p2]
                 }else{
                     Toast.makeText(this@SaisirActivity,"Choissisez un motif...",Toast.LENGTH_SHORT).show()
@@ -155,13 +166,13 @@ class SaisirActivity : AppCompatActivity() {
 
         //MEDICAMENTS SPINNER
 
-       spinnerMedicament = findViewById(R.id.spinnerMedicaments)
+        spinnerMedicament = findViewById(R.id.spinnerMedicaments)
         val adapterSpinnerMedicament = MedicamentsCompletAdapter(this@SaisirActivity, medicaments)
-       spinnerMedicament.adapter = adapterSpinnerMedicament
-
+        spinnerMedicament.adapter = adapterSpinnerMedicament
+        spinnerMedicament.setSelection(0)
         spinnerMedicament.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if(p2 != 0 || medicaments[p2] != medTest ){
+                if(medicaments[p2] != medTest ){
                     ajouterMedicamentDialog(medicaments[p2])
                     adapaterLvMedicament.notifyDataSetChanged()
                 }else{
@@ -204,6 +215,22 @@ class SaisirActivity : AppCompatActivity() {
         }
         return true
     }
+    // CLEAR DAtA
+
+    fun clearData(){
+        this.medicamentOffertsChoisis.clear()
+        this.tvCpPra.text = ""
+        this.tvVillePra.text = ""
+        this.tvNomPra.text = ""
+        this.tvPrenomPra.text = ""
+        this.coefConfiance = 0
+        this.spinnerMedicament.setSelection(0)
+        this.spinnerPraticien.setSelection(0)
+        this.spinnerMotif.setSelection(0)
+        this.adapaterLvMedicament.notifyDataSetChanged()
+
+    }
+
     //DIALOG
     fun seDeconnecter(vue: View) {
         DeconnectionDialog().show(this.supportFragmentManager, DeconnectionDialog.TAG)
@@ -237,7 +264,7 @@ class SaisirActivity : AppCompatActivity() {
             }
             .show()
     }
-    fun confirmationSuppression(med: MedicamentOffert, adapter: MedicamentsAdapter){
+    fun confirmationSuppressionDialog(med: MedicamentOffert, adapter: MedicamentsAdapter){
         val medNom = med.leMedicament.nom
         val medQe = med.quantite
 
@@ -267,12 +294,18 @@ class SaisirActivity : AppCompatActivity() {
                 if(qte.text.toString() != ""){
                     quantite += Integer.parseInt(qte.text.toString())
                 }
-                medicamentOffertsChoisis.add(
-                    MedicamentOffert(
-                        med,
-                        quantite
-                    ))
-                dialog.dismiss()
+                if(quantite != 0) {
+                    val medOffert = MedicamentOffert(med, quantite)
+                    for (medic: MedicamentOffert in medicamentOffertsChoisis){
+                        if(medic.leMedicament.nom == medOffert.leMedicament.nom){
+                            medicamentOffertsChoisis.remove(medic)
+                        }
+                    }
+                    medicamentOffertsChoisis.add(medOffert)
+                    dialog.dismiss()
+                }else{
+                    Toast.makeText(this@SaisirActivity,"La quantité doit être supérieur à 0 ",Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton("Annuler") { _, _ ->
             }
@@ -286,14 +319,15 @@ class SaisirActivity : AppCompatActivity() {
         toast.show()
     }
 
-    //SERVICE BDD
+                                                                                //SERVICE BDD
+    //GET
     fun getLesMedicaments(): MutableList<Medicament>{
 
         medicaments.clear()
 
         val url = "$ip/medicaments"
         val medicaments = mutableListOf<Medicament>()
-        medicaments.add(medTest)
+        medicaments.add(0,medTest)
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -311,11 +345,11 @@ class SaisirActivity : AppCompatActivity() {
                     medicaments.add(medicament)
                     i += 1
                 }
-                medicaments.sortBy {  it.nom  }
             },
             {
                 Log.i("Error Medicaments : ", it.message.toString())
             })
+        request.retryPolicy = retryPolicy
         requestQueue.add(request)
 
         return medicaments
@@ -326,7 +360,7 @@ class SaisirActivity : AppCompatActivity() {
 
         val url = "$ip/motifs"
         val motifs = mutableListOf<Motif>()
-        motifs.add(motTest)
+        motifs.add(0, motTest)
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -343,15 +377,17 @@ class SaisirActivity : AppCompatActivity() {
             {
                 Log.i("Error Motif : ", it.toString())
             })
+        request.retryPolicy = retryPolicy
         requestQueue.add(request)
         return motifs
     }
     fun getLesPraticiens(): MutableList<Praticien> {
+
         praticiens.clear()
 
         val url = "$ip/praticiens"
         val praticiens = mutableListOf<Praticien>()
-        praticiens.add(praTest)
+        praticiens.add(0, praTest)
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -371,11 +407,12 @@ class SaisirActivity : AppCompatActivity() {
             {
                 Log.i("Error Praticien : ", it.toString())
             })
+        request.retryPolicy = retryPolicy
         requestQueue.add(request)
         return praticiens
     }
 
-    //AJOUT
+    //POST
     fun ajouterRapport() {
 
         val url = "$ip/ajouter/rapports"
@@ -399,6 +436,7 @@ class SaisirActivity : AppCompatActivity() {
         val requete = JsonObjectRequest(
             Request.Method.POST, url, params,
             {
+                Thread.sleep(200)
                 ajouterMedicaments(Integer.parseInt(it.getString("numRapport")))
                 Log.i("info rapport num : ", it.getString("numRapport"))
             },
@@ -428,7 +466,10 @@ class SaisirActivity : AppCompatActivity() {
         val requete = JsonArrayRequest(
             Request.Method.POST, url, params,
             {
-                Log.i("info medoc num : ", it.get(0).toString())
+                val nbOfrres = it.get(0).toString()
+                Toast.makeText(this@SaisirActivity,"Rapport enregistré ! ",Toast.LENGTH_LONG).show()
+
+
             },
             { error ->
                 Log.e("INFO POST MEdicaments", "Erreur HTTP :" + "--" + error.message + "--")
@@ -438,11 +479,10 @@ class SaisirActivity : AppCompatActivity() {
     }
     @SuppressLint("SimpleDateFormat")
     fun valider(vue: View){
-        val rapport: Int
-        val medicamentsOfferts: Int
         if(this.verifierAvantValider()) {
             ajouterRapport()
-            Thread.sleep(500)
+            Thread.sleep(100)
+            this.clearData()
         }
     }
 }

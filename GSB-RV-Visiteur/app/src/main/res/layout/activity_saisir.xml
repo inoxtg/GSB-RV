@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_img_13"/>
+                android:src="@drawable/nature_img_14jpg"/>
     </FrameLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -85,6 +85,33 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:background="#96ffffff" />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:text="Bilan : "
+                android:textColor="#96ffffff"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2dp"
+                android:background="#96ffffff" />
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvRapportBilan"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham"
+                android:hint="Bilan..."
+                android:textColorHint="#96ffffff"
+                android:textColor="#96ffffff"
+                android:textSize="16sp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#96ffffff" />
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,6 +123,7 @@
                     android:spinnerMode="dialog"
                     android:background="@drawable/base_add_red"/>
             <TextView
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gotham"
@@ -124,6 +152,11 @@
                     android:hint="Nom..."
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
+            <View
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="#96ffffff"
+            />
             <TextView
                     android:textColorHint="#96ffffff"
                     android:id="@+id/tiPraPrenom"
@@ -156,6 +189,11 @@
                     android:maxLength="25"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"/>
+            <View
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="#96ffffff"
+            />
             <TextView
                     android:textColorHint="#96ffffff"
                     android:id="@+id/tvPraCp"
@@ -250,6 +288,7 @@
                     android:layout_height="30dp"
                     android:id="@+id/btnAjouterMotif"/>
             <TextView
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gotham"
@@ -275,6 +314,7 @@
                     android:spinnerMode="dialog"
                     android:background="@android:drawable/spinner_background"/>
             <TextView
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/tvAutreMotif"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -293,43 +333,13 @@
                     android:textSize="18sp"/>
 
         </LinearLayout>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#96ffffff" />
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:text="Bilan : "
-                android:textColor="#96ffffff"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2dp"
-                android:background="#96ffffff" />
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tvRapportBilan"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham"
-                android:hint="Bilan..."
-                android:textColorHint="#96ffffff"
-                android:textColor="#96ffffff"
-                android:textSize="16sp"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#96ffffff" />
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <TextView
-                    android:layout_marginTop="4dp"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham"

@@ -317,7 +317,6 @@ def enregistrerVraiRapportVisite(mat, praNum, motNum, dateVisite, dateRedac, bil
     else:
         return None
 def enregistrerEchantillonsOfferts(matricule, numRapport, echantillons):
-    print('ENREGISTRER ECHANTILLONS')
     try:
         curseur = getConnexionBD().cursor()
 
@@ -327,14 +326,17 @@ def enregistrerEchantillonsOfferts(matricule, numRapport, echantillons):
             '''
 
         nbOffres = 0
-
+        offreTab = []
         for offre in echantillons:
             curseur.execute(requete, (matricule, numRapport, offre['med_depotlegal'], offre['off_quantite']))
             nbOffres += curseur.rowcount
 
         connexionBD.commit()
         curseur.close()
-        return nbOffres
+        offreDic = {}
+        offreDic['nbOfrres'] = nbOffres
+        offreTab.append(offreDic)
+        return offreTab
 
     except:
         return None

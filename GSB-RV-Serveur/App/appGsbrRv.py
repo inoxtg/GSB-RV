@@ -148,15 +148,15 @@ def addEchantillonsOfferts(matricule, numRapport):
     echantillons = json.loads(request.data)
     nbOffres = mGsb.enregistrerEchantillonsOfferts(matricule, numRapport, echantillons)
 
-    reponse = make_response('')
+
     if nbOffres != None:
-        response_dict = {"nombreOffres": nbOffres}
-        response = make_response(json.dumps(response_dict))
-        reponse.mimetype = 'application/json'
-        reponse.status_code = 200
+        response = make_response(json.dumps(nbOffres))
+        response.mimetype = 'application/json'
+        response.status_code = 200
     else:
-        reponse.status_code = 409
-    return reponse
+        response = make_response('')
+        response.status_code = 409
+    return response
 
 
 @app.route('/motifs', methods=['GET'])
